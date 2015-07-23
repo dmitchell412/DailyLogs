@@ -1,0 +1,17 @@
+*.asv
+*.m~
+*.cu~
+*.ptx
+*.log
+html
+*.avi
+*.aux
+*.nav
+*.snm
+*.toc
+*.out
+*.gz
+*.bbl
+.AppleDouble
+.DS_Store
+
