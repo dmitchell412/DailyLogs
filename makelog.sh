@@ -72,6 +72,8 @@ maketex() {
 		\subsection{Signal Model}
 		%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 		
+		\end{document}
+
 END
 		vim $1/$2.tex 
 	fi
@@ -83,6 +85,7 @@ makepdf() {
 		cd $1
 		pdflatex $2.tex #WIP: Check exit status of pdflatex
 		rm $2.out $2.log $2.aux # WIP: Check existence of extraneous files
+		evince $2.pdf & #WIP: Add option to suppress
 		cd ..
 	else
 		echo "Error: .tex does not exist for this date or name."
@@ -110,9 +113,17 @@ weeksum() {
 	echo WIP # WIP: Make weekly summary function to compile logs for one week
 }
 
+# Update shortcut commands in this script from .tex files
+updatecommands() {
+	echo WIP # WIP: Make function to pull new newcommands from .tex files and insert into this script
+}
+
 # Define directory and file names
 makevar() {
-	if [[ "$1" =~ ^[0-9]+$ ]] && [ -z "$2" ]; then
+	if [ -z "$1" ]; then
+		DIRNAME=logs_$(date +"%Y-%m")
+		FILENAME=log_DPM_$(date +"%Y-%m-%d")
+	elif [[ "$1" =~ ^[0-9]+$ ]] && [ -z "$2" ]; then
 		DIRNAME=logs_$(date -d "-$1 days" +"%Y-%m")
 		FILENAME=log_DPM_$(date -d "-$1 days" +"%Y-%m-%d")
 	elif [ -z "$2" ]; then
@@ -126,20 +137,22 @@ makevar() {
 
 # Select subset of functions
 branchchoice() {
-	if [ -z "$1" ] || [ "$1" = "all" ]; then # WIP: Make this branch structure a case
+	declare -a choice=(all tex pdf git makeall makepush)
+	if [ -z "$1" ] || [ "$1" = ${choice[0]} ]; then # WIP: Make this branch structure a case
 		maketex $2 $3
 		makepdf $2 $3
+					# WIP: Insert push confirmation [y/n?] and option to suppress
 		gitpush $2 $3
-	elif [ "$1" = "tex" ]; then
+	elif [ "$1" = ${choice[1]} ]; then
 		maketex $2 $3
-	elif [ "$1" = "pdf" ]; then
+	elif [ "$1" = ${choice[2]} ]; then
 		makepdf $2 $3
-	elif [ "$1" = "git" ]; then
+	elif [ "$1" = ${choice[3]} ]; then
 		gitpush $2 $3
-	elif [ "$1" = "makeall" ]; then
+	elif [ "$1" = ${choice[4]} ]; then
 		maketex $2 $3
 		makepdf $2 $3
-	elif [ "$1" = "makepush" ]; then
+	elif [ "$1" = ${choice[5]} ]; then
 		makepdf $2 $3
 		gitpush $2 $3
 	else
@@ -147,44 +160,7 @@ branchchoice() {
 	fi
 }
 
-#branchchoice() {
-#	case "$1" in
-#	[ "$1" = "all" ] ) echo 1;;
-#	[ "$1" = "tex" ] 		) echo 2;;
-#	[ "$1" = "pdf" ]		) echo 3;;
-#	[ "$1" = "git" ]		) echo 4;;
-#	[ "$1" = "makeall" ]		) echo 5;;
-#	[ "$1" = "makepush" ]		) echo 6;;
-#	esac
-#	if [ -z "$1" ] || [ "$1" = "all" ]; then # WIP: Make this branch structure a case
-#		maketex $2 $3
-#		makepdf $2 $3
-#		gitpush $2 $3
-#	elif [ "$1" = "tex" ]; then
-#		maketex $2 $3
-#	elif [ "$1" = "pdf" ]; then
-#		makepdf $2 $3
-#	elif [ "$1" = "git" ]; then
-#		gitpush $2 $3
-#	elif [ "$1" = "makeall" ]; then
-#		maketex $2 $3
-#		makepdf $2 $3
-#	elif [ "$1" = "makepush" ]; then
-#		makepdf $2 $3
-#		gitpush $2 $3
-#	else
-#		echo "Error: Invalid argument."
-#	fi
-#}
-
 # Perform functions from script input
-branchchoice $1
-#if [ -z "$1" ] || [ "$1" = "^\d+$" ]; then
-#
-#if [ $# -ge 2 ]; then
-#	DIRNAME=logs_$(date -d "-$2 days" +"%Y-%m")
-#	FILENAME=log_DPM_$(date -d "-$2 days" +"%Y-%m-%d")
-#else
-#	DIRNAME=logs_$(date +"%Y-%m")
-#	FILENAME=log_DPM_$(date +"%Y-%m-%d")
-#fi
+#makevar $1 $2
+#branchchoice $1 $DIRNAME $FILENAME
+
