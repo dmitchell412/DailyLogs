@@ -2,12 +2,10 @@
 
 #!/bin/bash
 maketex() {
-	if [ ! -d $1 ]; then
-		mkdir $1
-	fi
+	if [ ! -d $1 ]; then mkdir $1; fi
 	if [ -f $1/$2.tex ]; then
-		echo "Error: .tex already exists for this date or name."
-	else
+		echo "Error: $1/$2.tex already exists."
+	elif [ ! -z $1 ] && [ ! -z $2 ]; then
 		cat > $1/$2.tex << END
 		
 		\documentclass{article}         % Must use LaTeX 2e
@@ -75,7 +73,9 @@ maketex() {
 		\end{document}
 
 END
-		vim $1/$2.tex 
+		vim -O $1/$2.tex $3
+	else
+		echo "Error: Either DIRNAME or FILENAME is a null string."
 	fi
 }
 
@@ -84,27 +84,25 @@ makepdf() {
 	if [ -f $1/$2.tex ]; then
 		cd $1
 		pdflatex $2.tex #WIP: Check exit status of pdflatex
-		rm $2.out $2.log $2.aux # WIP: Check existence of extraneous files
-		evince $2.pdf & #WIP: Add option to suppress
+		if [ -f $2.out ]; then rm $2.out; fi
+		if [ -f $2.log ]; then rm $2.log; fi
+		if [ -f $2.aux ]; then rm $2.aux; fi
+		if [ ! "$3" = noview ]; then evince $2.pdf & fi
 		cd ..
 	else
-		echo "Error: .tex does not exist for this date or name."
+		echo "Error: $1/$2.tex does not exist."
 	fi
 }
 
 # Add, commit, and push to GitHub
 gitpush() {
 	if [ -f $1/$2.tex ] || [ -f $1/$2.pdf ]; then
-		if [ -f $1/$2.tex ]; then
-			git add $1/$2.tex
-		fi
-		if [ -f $1/$2.pdf ]; then
-			git add $1/$2.pdf
-		fi
-		git commit -m "Daily log update for $(date +"%A, %B %d, %Y")."
+		if [ -f $1/$2.tex ]; then git add $1/$2.tex; fi
+		if [ -f $1/$2.pdf ]; then git add $1/$2.pdf; fi
+		git commit -m "Daily log update for $(date +"%A, %B %d, %Y")." # WIP: Consider more informative message for misc
 		git push origin master
 	else
-		echo "Error: Neither .tex nor .pdf for this date or name exists."
+		echo "Error: Neither $1/$2.tex nor $1/$2.pdf exists."
 	fi
 }
 
@@ -113,9 +111,9 @@ weeksum() {
 	echo WIP # WIP: Make weekly summary function to compile logs for one week
 }
 
-# Update shortcut commands in this script from .tex files
-updatecommands() {
-	echo WIP # WIP: Make function to pull new newcommands from .tex files and insert into this script
+# Update preamble in this script from .tex files
+updatepreamble() {
+	echo WIP # WIP: Make function to pull new update preambles from .tex files and insert into this script
 }
 
 # Define directory and file names
@@ -138,11 +136,12 @@ makevar() {
 # Select subset of functions
 branchchoice() {
 	declare -a choice=(all tex pdf git makeall makepush)
-	if [ -z "$1" ] || [ "$1" = ${choice[0]} ]; then # WIP: Make this branch structure a case
+	if [ -z "$1" ] || [ "$1" = ${choice[0]} ]; then # WIP: Consider case for this branch structure
 		maketex $2 $3
 		makepdf $2 $3
-					# WIP: Insert push confirmation [y/n?] and option to suppress
-		gitpush $2 $3
+		read -p "Push to GitHub? [y/n] " -n 1 -r
+		echo
+		if [[ $REPLY =~ ^[Yy]$ ]]; then gitpush $2 $3; fi
 	elif [ "$1" = ${choice[1]} ]; then
 		maketex $2 $3
 	elif [ "$1" = ${choice[2]} ]; then
@@ -162,5 +161,7 @@ branchchoice() {
 
 # Perform functions from script input
 #makevar $1 $2
-#branchchoice $1 $DIRNAME $FILENAME
+#branchchoice $1 $2 $3 #$DIRNAME $FILENAME
+maketex $1 $2 $3
+makepdf $1 $2 $3
 
