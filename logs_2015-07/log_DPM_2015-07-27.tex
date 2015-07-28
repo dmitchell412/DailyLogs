@@ -155,7 +155,7 @@ The distribution $p\left(z\right)$ can be evaluated in this manner, but the resu
 \section{Directions}\label{Directions}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The fact that $p\left(z\right)$ exists for values of $z > 0$ causes problems. This results from $p\left(\mu\right)\sim\mathcal{N}$. Gauss-Hermite quadrature might not be an option for finite integration bounds. May need to redo the calculation using a uniform distribution for $p\left(\mu\right)$.
+The fact that $p\left(z\right)$ depends on values of $\mu < 0$ causes problems. This results from $p\left(\mu\right)\sim\mathcal{N}$. Gauss-Hermite quadrature might not be an option for finite integration bounds. May need to redo the calculation using a uniform distribution for $p\left(\mu\right)$ and Gauss-Legendre quadrature.
 
 An analytical evaluation of mutual information $I\left(\mu;z\right)$ might be possible if it is acceptable to represent the optical attenuation coefficient as a complex number, i.e. $\vec{\mu} = \left[ \begin{array}{c} \mu_r \\ 0 \end{array} \right]$. This still leaves the issue of $\mu$ being allowed to be negative, which is unphysical.
 
