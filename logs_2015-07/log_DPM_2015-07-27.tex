@@ -1,0 +1,128 @@
+\documentclass{article}         % Must use LaTeX 2e
+\usepackage[plainpages=false, colorlinks=true, citecolor=black, filecolor=black, linkcolor=black, urlcolor=black]{hyperref}		
+\usepackage[left=.75in,right=.75in,top=.75in,bottom=.75in]{geometry}
+\usepackage{makeidx,color}
+\usepackage{graphicx,float}
+\usepackage{amsmath,amsthm,amsfonts,amscd,amssymb} 
+\allowdisplaybreaks
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	Some math support.					     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%	Theorem environments (these need the amsthm package)
+%
+%% \theoremstyle{plain} %% This is the default
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{ax}{Axiom}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{exrcs}{Exercise}
+\newtheorem*{exmple}{Example}
+
+%\numberwithin{equation}{section}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	Macros.							     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+% END PREAMBLE
+
+\begin{document}                % The start of the document
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Goals}\label{Goals}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Work}\label{Work}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{equation}
+	I\left(\mu;z\right) = H\left(z\right) - H\left(z|\mu\right) 
+	= \frac{1}{2}\ln\left(\left(2\pi e\right)^2\cdot\lvert\Sigma_z\rvert\right) - \frac{1}{2}\ln\left(\left(2\pi e\right)^2\cdot\lvert\Sigma_\nu\rvert\right)
+\end{equation}
+
+\begin{equation}
+	\Sigma_\nu = \left[ \begin{array}{cc}
+	\sigma_{\nu,r}^2 & 0 \\
+	0 & \sigma_{\nu,i}^2 \end{array} \right]
+\end{equation}
+
+The quantities $\sigma_{\nu,r}^2$ and $\sigma_{\nu,i}^2$ are measured.
+
+\begin{equation}
+	\lvert\Sigma_\nu\rvert = \sigma_{\nu,r}^2\sigma_{\nu,i}^2
+\end{equation}
+
+\begin{equation}
+	\Sigma_z = \mathrm{E}\left[\left(\vec{z} - \mathrm{E}\left[\vec{z}\right]\right)\left(\vec{z} - \mathrm{E}\left[\vec{z}\right]\right)^T\right] 
+	= \mathrm{E}\left[\left( \begin{array}{c}
+	z_r - \bar{z}_r \\
+	z_i - \bar{z}_i \end{array} \right)\left( \begin{array}{cc}
+	z_r - \bar{z}_r & z_i - \bar{z}_i \end{array} \right)\right]
+\end{equation}
+\begin{equation}
+	\Sigma_z = \left[ \begin{array}{cc}
+	\mathrm{E}\left[\left(z_r - \bar{z}_r\right)^2\right] & \mathrm{E}\left[\left(z_r - \bar{z}_r\right)\left(z_i - \bar{z}_i\right)\right] \\
+	\mathrm{E}\left[\left(z_i - \bar{z}_i\right)\left(z_r - \bar{z}_r\right)\right] & \mathrm{E}\left[\left(z_r - \bar{z}_r\right)^2\right] \end{array} \right]
+\end{equation}
+
+\begin{equation}
+	\lvert\Sigma_z\rvert = \mathrm{E}\left[\left(z_r - \bar{z}_r\right)^2\right]\mathrm{E}\left[\left(z_i - \bar{z}_i\right)^2\right] - \left(\mathrm{E}\left[\left(z_r - \bar{z}_r\right)\left(z_i - \bar{z}_i\right)\right]\right)^2
+\end{equation}
+
+\begin{equation}
+	p\left(z\right) = \int p\left(z|\mu\right)p\left(\mu\right)d\mu = \int S\frac{1}{\sqrt{2\pi\sigma_{tot}^2}}\exp\left(-\frac{\left(\mu - \mu_{tot}\right)^2}{2\sigma_{tot}^2}\right)d\mu
+\end{equation}
+
+\begin{equation}
+	x = \frac{\mu - \mu_{tot}}{\sqrt{2}\sigma_{tot}}
+\end{equation}
+
+\begin{equation}
+	\mu = \sqrt{2}\sigma_{tot}x + \mu_{tot}
+\end{equation}
+
+\begin{equation}
+	d\mu = \sqrt{2}\sigma_{tot}dx
+\end{equation}
+
+\begin{equation}
+	\sigma_{tot}^2 = \left(\frac{a_r^2}{\sigma_{\nu,r}^2} + \frac{a_i^2}{\sigma_{\nu,i}^2} + \frac{1}{\sigma_\mu^2}\right)^{-1}
+\end{equation}
+
+\begin{equation}
+	\mu_{tot} = \left(\frac{\mu_\mu}{\sigma_\mu^2} + \frac{\left(z_r - b_r\right)/a_r}{\sigma_{\nu,r}^2/a_r} + \frac{\left(z_i - b_i\right)/a_i}{\sigma_{\nu,i}^2/a_i}\right)\sigma_{tot}
+\end{equation}
+
+\begin{equation}
+	S = \left[2\pi\sqrt{\frac{\left(\sigma_{\nu,r}/a_r\right)^2\left(\sigma_{\nu,i}/a_i\right)^2\sigma_\mu^2}{\sigma_{tot}^2}}\right]^{-1}\exp\left[-\frac{1}{2}\left(\frac{\left(z_r - b_r\right)^2}{\sigma_{\nu,r}^2} + \frac{\left(z_i - b_i\right)^2}{\sigma_{\nu,i}^2} + \frac{\mu_\mu^2}{\sigma_\mu^2} - \frac{\mu_{tot}^2}{\sigma_{tot}^2}\right)\right]
+\end{equation}
+
+\begin{equation}
+	p\left(z\right) = S\frac{\sqrt{2}\sigma_{tot}}{\sqrt{2\pi\sigma_{tot}^2}}\int e^{-x^2}dx = \frac{S}{\sqrt{\pi}}\left(\frac{1}{2}\sqrt{\pi}\mathrm{erf}\left(x\right) + C\right)
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Directions}\label{Directions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The fact that $p\left(z\right)$ exists for values of $z > 0$ causes problems. This results from $p\left(\mu\right)\sim\mathcal{N}$. Gauss-Hermite quadrature might not be an option for finite integration bounds. May need to redo the calculation using a uniform distribution for $p\left(\mu\right)$.
+
+\end{document}
+

@@ -164,6 +164,7 @@ branchchoice() {	# Arguments: $CHOICE $DIRNAME $FILENAME
 # Perform functions from script input
 #makevar "$1" "$2"
 #branchchoice "$1" "$2" "$3" #$DIRNAME $FILENAME
-maketex "$1" "$2" "$3" "$4"
+makevar "$1" "$2"
+maketex "$DIRNAME" "$FILENAME" "$3" "$4"
 #makepdf "$1" "$2" "$3"
 
