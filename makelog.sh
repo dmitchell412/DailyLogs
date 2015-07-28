@@ -54,13 +54,19 @@ maketex() {	# Arguments: $DIRNAME $FILENAME [$FILESEARCHSTRING] [$VSPLITFILENAME
 \begin{document}                % The start of the document
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Goals}\label{Goals}
+\section{Objectives}\label{Objectives}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Work}\label{Work}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Derivations}\label{Derivations}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -74,7 +80,7 @@ maketex() {	# Arguments: $DIRNAME $FILENAME [$FILESEARCHSTRING] [$VSPLITFILENAME
 \end{document}
 
 END
-		if [ -z "$3" ]; then vim +1/Goals -O "$1"/"$2".tex "$4"
+		if [ -z "$3" ]; then vim +1/Objectives -O "$1"/"$2".tex "$4"
 		else vim +1/"$3" -O "$1"/"$2".tex "$4"; fi
 	else
 		echo "Error: Either DIRNAME or FILENAME is a null string."

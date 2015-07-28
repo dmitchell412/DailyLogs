@@ -43,32 +43,53 @@
 \begin{document}                % The start of the document
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Goals}\label{Goals}
+\section{Objectives}\label{Objectives}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+Calculate mutual information using numerical integration for a complex, linearized signal model $\vec{z}\left(\mu,\vec{k}\right)$.
 
+\begin{equation}
+	\vec{z}\left(\mu,\vec{k}\right) = \int_\Omega M\left(\vec{x}\right) e^{-s\left(\mu ,\vec{x}\right)}e^{-2\pi i\vec{k}\cdot\vec{x}}d\vec{x}+\nu=\mathcal{G}\left(\mu,\vec{k}\right)+\nu
+	\qquad\qquad \nu\sim\mathcal{N}\left(\vec{0},\Sigma_\nu\right)
+	\qquad\qquad \Sigma_\nu = \left[ \begin{array}{cc} 
+		\sigma_{\nu,r}^2 & 0 \\
+		0 & \sigma_{\nu,i}^2 \end{array} \right]
+\end{equation}
+
+Assume normal distribution for the model parameter, optical attenuation coefficient $\mu$.
+
+\begin{equation}
+	\mu\sim\mathcal{N}\left(\vec{\mu}_\mu,\Sigma_\mu\right)
+	\qquad\qquad \vec{\mu}_\mu=\left[ \begin{array}{c}
+		\mu_{\mu,r} \\ 0 \\ \end{array} \right]
+	\qquad\qquad \Sigma_\mu=\left[\begin{array}{cc}
+		\sigma_{\mu,r}^2 & 0 \\
+		0 & 0 \end{array} \right]
+\end{equation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Work}\label{Work}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+Mutual information can be calculated from the difference of entropies. In the case of normal distributions, it is necessary to know the covariance matrices of the distributions $p\left(z\right)$ and $p\left(z|\mu\right)$.
 \begin{equation}
 	I\left(\mu;z\right) = H\left(z\right) - H\left(z|\mu\right) 
 	= \frac{1}{2}\ln\left(\left(2\pi e\right)^2\cdot\lvert\Sigma_z\rvert\right) - \frac{1}{2}\ln\left(\left(2\pi e\right)^2\cdot\lvert\Sigma_\nu\rvert\right)
 \end{equation}
 
+The real and imaginary parts of the signal vary independently of one another, so the covariance matrix $\Sigma_\nu$ is diagonal.
 \begin{equation}
 	\Sigma_\nu = \left[ \begin{array}{cc}
 	\sigma_{\nu,r}^2 & 0 \\
 	0 & \sigma_{\nu,i}^2 \end{array} \right]
 \end{equation}
 
-The quantities $\sigma_{\nu,r}^2$ and $\sigma_{\nu,i}^2$ are measured.
-
+The quantities $\sigma_{\nu,r}^2$ and $\sigma_{\nu,i}^2$ are measured, so the determinant $\lvert\Sigma_\nu\rvert$ is known, and one term of the mutual information expression can be immediately calculated.
 \begin{equation}
 	\lvert\Sigma_\nu\rvert = \sigma_{\nu,r}^2\sigma_{\nu,i}^2
 \end{equation}
 
+Obtaining $\Sigma_z$ requires the bulk of the calculations. From the definition of covariance matrix, 
 \begin{equation}
 	\Sigma_z = \mathrm{E}\left[\left(\vec{z} - \mathrm{E}\left[\vec{z}\right]\right)\left(\vec{z} - \mathrm{E}\left[\vec{z}\right]\right)^T\right] 
 	= \mathrm{E}\left[\left( \begin{array}{c}
@@ -76,32 +97,30 @@ The quantities $\sigma_{\nu,r}^2$ and $\sigma_{\nu,i}^2$ are measured.
 	z_i - \bar{z}_i \end{array} \right)\left( \begin{array}{cc}
 	z_r - \bar{z}_r & z_i - \bar{z}_i \end{array} \right)\right]
 \end{equation}
+
+Written explicitly in matrix form, the covariance matrix for $\Sigma_z$ is
 \begin{equation}
 	\Sigma_z = \left[ \begin{array}{cc}
 	\mathrm{E}\left[\left(z_r - \bar{z}_r\right)^2\right] & \mathrm{E}\left[\left(z_r - \bar{z}_r\right)\left(z_i - \bar{z}_i\right)\right] \\
 	\mathrm{E}\left[\left(z_i - \bar{z}_i\right)\left(z_r - \bar{z}_r\right)\right] & \mathrm{E}\left[\left(z_r - \bar{z}_r\right)^2\right] \end{array} \right]
 \end{equation}
 
+The determinant of the covariance matrix $\Sigma_z$ can be calculated with knowledge of $\mathrm{E}\left[\left(z_r - \bar{z}_r\right)^2\right]$, $\mathrm{E}\left[\left(z_i - \bar{z}_i\right)^2\right]$, and $\mathrm{E}\left[\left(z_r - \bar{z}_r\right)\left(z_i - \bar{z}_i\right)\right]$.
 \begin{equation}
 	\lvert\Sigma_z\rvert = \mathrm{E}\left[\left(z_r - \bar{z}_r\right)^2\right]\mathrm{E}\left[\left(z_i - \bar{z}_i\right)^2\right] - \left(\mathrm{E}\left[\left(z_r - \bar{z}_r\right)\left(z_i - \bar{z}_i\right)\right]\right)^2
 \end{equation}
 
+$\mathrm{E}\left[\left(z_r - \bar{z}_r\right)^2\right]$, $\mathrm{E}\left[\left(z_i - \bar{z}_i\right)^2\right]$, and $\mathrm{E}\left[\left(z_r - \bar{z}_r\right)\left(z_i - \bar{z}_i\right)\right]$ are difficult to obtain analytically and must be calculated using Gauss-Hermite quadrature. The general form for Gauss-Hermite quadrature is
+\begin{equation}
+	\int_{-\infty}^{\infty}e^{-x^2}f\left(x\right)dx \approx \sum_{i=1}^n w_if\left(x_i\right)
+\end{equation}
+
+It is necessary to evaluate the distribution $p\left(z\right)$ before Gauss-Hermite quadrature can be performed to obtain the covariance matrix of $z$. The distribution $p\left(z\right)$ can be shown to be equal to the product of three one-dimensional normal distributions.
 \begin{equation}
 	p\left(z\right) = \int p\left(z|\mu\right)p\left(\mu\right)d\mu = \int S\frac{1}{\sqrt{2\pi\sigma_{tot}^2}}\exp\left(-\frac{\left(\mu - \mu_{tot}\right)^2}{2\sigma_{tot}^2}\right)d\mu
 \end{equation}
 
-\begin{equation}
-	x = \frac{\mu - \mu_{tot}}{\sqrt{2}\sigma_{tot}}
-\end{equation}
-
-\begin{equation}
-	\mu = \sqrt{2}\sigma_{tot}x + \mu_{tot}
-\end{equation}
-
-\begin{equation}
-	d\mu = \sqrt{2}\sigma_{tot}dx
-\end{equation}
-
+The statistics for normal distribution which results from the product of the three normal distributions are given by the following equations. It should be noted that the normal distribution resulting from the product of multiple normal distributions is not normalized, which can be seen from the factor $S$.
 \begin{equation}
 	\sigma_{tot}^2 = \left(\frac{a_r^2}{\sigma_{\nu,r}^2} + \frac{a_i^2}{\sigma_{\nu,i}^2} + \frac{1}{\sigma_\mu^2}\right)^{-1}
 \end{equation}
@@ -114,8 +133,22 @@ The quantities $\sigma_{\nu,r}^2$ and $\sigma_{\nu,i}^2$ are measured.
 	S = \left[2\pi\sqrt{\frac{\left(\sigma_{\nu,r}/a_r\right)^2\left(\sigma_{\nu,i}/a_i\right)^2\sigma_\mu^2}{\sigma_{tot}^2}}\right]^{-1}\exp\left[-\frac{1}{2}\left(\frac{\left(z_r - b_r\right)^2}{\sigma_{\nu,r}^2} + \frac{\left(z_i - b_i\right)^2}{\sigma_{\nu,i}^2} + \frac{\mu_\mu^2}{\sigma_\mu^2} - \frac{\mu_{tot}^2}{\sigma_{tot}^2}\right)\right]
 \end{equation}
 
+Change of variables for Gauss-Hermite quadrature is done by the following equations:
 \begin{equation}
-	p\left(z\right) = S\frac{\sqrt{2}\sigma_{tot}}{\sqrt{2\pi\sigma_{tot}^2}}\int e^{-x^2}dx = \frac{S}{\sqrt{\pi}}\left(\frac{1}{2}\sqrt{\pi}\mathrm{erf}\left(x\right) + C\right)
+	x = \frac{\mu - \mu_{tot}}{\sqrt{2}\sigma_{tot}}
+\end{equation}
+
+\begin{equation}
+	\mu = \sqrt{2}\sigma_{tot}x + \mu_{tot}
+\end{equation}
+
+\begin{equation}
+	d\mu = \sqrt{2}\sigma_{tot}dx
+\end{equation}
+
+The distribution $p\left(z\right)$ can be evaluated in this manner, but the result is not physical and may not be useful. At the very least it is very difficult to obtain further statistics about the distribution $p\left(z\right)$.
+\begin{equation}
+	p\left(z\right) = S\frac{\sqrt{2}\sigma_{tot}}{\sqrt{2\pi\sigma_{tot}^2}}\int_{-\infty}^\infty e^{-x^2}dx = \frac{S}{\sqrt{\pi}}\left(\sqrt{\pi}\right) = S
 \end{equation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -124,5 +157,8 @@ The quantities $\sigma_{\nu,r}^2$ and $\sigma_{\nu,i}^2$ are measured.
 
 The fact that $p\left(z\right)$ exists for values of $z > 0$ causes problems. This results from $p\left(\mu\right)\sim\mathcal{N}$. Gauss-Hermite quadrature might not be an option for finite integration bounds. May need to redo the calculation using a uniform distribution for $p\left(\mu\right)$.
 
+An analytical evaluation of mutual information $I\left(\mu;z\right)$ might be possible if it is acceptable to represent the optical attenuation coefficient as a complex number, i.e. $\vec{\mu} = \left[ \begin{array}{c} \mu_r \\ 0 \end{array} \right]$. This still leaves the issue of $\mu$ being allowed to be negative, which is unphysical.
+
+The change of variables from $p\left(z|\mu\right) = \mathcal{N}_{\vec{z}}\left(\vec{a}\left(\mu-\hat{\mu}\right)+\vec{b},\Sigma_\nu\right)$ to $p\left(z|\mu\right) = \mathcal{N}_\mu$ is ambiguous. Is it then a one-dimensional normal distribution? Does this treat the complex element correctly? It may be better to investigate the complex normal distribution from the start.
 \end{document}
 
