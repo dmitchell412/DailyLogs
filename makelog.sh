@@ -2,11 +2,18 @@
 
 # This script generates a template for recording daily notes in LaTeX, compiles the PDF, and/or commits the results to GitHub.
 
+# Open file in vim
+openfile() {	# Arguments: $DIRNAME $FILENAME [$FILESEARCHSTRING] [$VSPLITFILENAME]
+	if [ -z "$3" ]; then vim +1/Objectives -O "$1"/"$2".tex "$4"
+	else vim +1/"$3" -O "$1"/"$2".tex "$4"; fi
+}
+
 # Create directory and .tex
 maketex() {	# Arguments: $DIRNAME $FILENAME [$FILESEARCHSTRING] [$VSPLITFILENAME]
 	if [ ! -d "$1" ]; then mkdir "$1"; fi
 	if [ -f "$1"/"$2".tex ]; then
-		echo "Error: "$1"/"$2".tex already exists."
+		read -p ""$1"/"$2".tex already exists. Open "$1"/"$2".tex? [y/n] " -n 1 -r; echo
+		if [[ $REPLY =~ ^[Yy]$ ]]; then openfile "$@"; fi
 	elif [ -n "$1" ] && [ -n "$2" ]; then
 		cat > "$1"/"$2".tex << END
 \documentclass{article}         % Must use LaTeX 2e
@@ -80,8 +87,7 @@ maketex() {	# Arguments: $DIRNAME $FILENAME [$FILESEARCHSTRING] [$VSPLITFILENAME
 \end{document}
 
 END
-		if [ -z "$3" ]; then vim +1/Objectives -O "$1"/"$2".tex "$4"
-		else vim +1/"$3" -O "$1"/"$2".tex "$4"; fi
+		openfile "$@"
 	else
 		echo "Error: Either DIRNAME or FILENAME is a null string."
 	fi
@@ -147,8 +153,7 @@ branchchoice() {	# Arguments: $CHOICE $DIRNAME $FILENAME
 	if [ -z "$1" ] || [ "$1" = ${choice[0]} ]; then # WIP: Consider case for this branch structure
 		maketex "$2" "$3"
 		makepdf "$2" "$3"
-		read -p "Push to GitHub? [y/n] " -n 1 -r
-		echo
+		read -p "Push to GitHub? [y/n] " -n 1 -r; echo
 		if [[ $REPLY =~ ^[Yy]$ ]]; then gitpush "$2" "$3"; fi
 	elif [ "$1" = ${choice[1]} ]; then
 		maketex "$2" "$3"
