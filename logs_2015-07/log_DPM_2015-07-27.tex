@@ -160,5 +160,7 @@ The fact that $p\left(z\right)$ depends on values of $\mu < 0$ causes problems. 
 An analytical evaluation of mutual information $I\left(\mu;z\right)$ might be possible if it is acceptable to represent the optical attenuation coefficient as a complex number, i.e. $\vec{\mu} = \left[ \begin{array}{c} \mu_r \\ 0 \end{array} \right]$. This still leaves the issue of $\mu$ being allowed to be negative, which is unphysical.
 
 The change of variables from $p\left(z|\mu\right) = \mathcal{N}_{\vec{z}}\left(\vec{a}\left(\mu-\hat{\mu}\right)+\vec{b},\Sigma_\nu\right)$ to $p\left(z|\mu\right) = \mathcal{N}_\mu$ is ambiguous. Is it then a one-dimensional normal distribution? Does this treat the complex element correctly? It may be better to investigate the complex normal distribution from the start.
+
+Also, need to ensure that $p\left(z\right)$ is normalized. Entropy of a normal distribution is likely different for an unnormalized distribution.
 \end{document}
 
