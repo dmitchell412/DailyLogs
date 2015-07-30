@@ -1,0 +1,153 @@
+\documentclass{article}         % Must use LaTeX 2e
+\usepackage[plainpages=false, colorlinks=true, citecolor=black, filecolor=black, linkcolor=black, urlcolor=black]{hyperref}		
+\usepackage[left=.75in,right=.75in,top=.75in,bottom=.75in]{geometry}
+\usepackage{makeidx,color,boxedminipage}
+\usepackage{graphicx,float}
+\usepackage{amsmath,amsthm,amsfonts,amscd,amssymb} 
+\allowdisplaybreaks
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	Some math support.					     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%	Theorem environments (these need the amsthm package)
+%
+%% \theoremstyle{plain} %% This is the default
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{ax}{Axiom}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{exrcs}{Exercise}
+\newtheorem*{exmple}{Example}
+
+%\numberwithin{equation}{section}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	Macros.							     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\eq}[1]{\begin{equation} #1 \end{equation}}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Pbf}{\mathbf{P}}
+\newcommand{\Rbf}{\mathbf{R}}
+\newcommand{\Vbf}{\mathbf{V}}
+\newcommand{\Xbf}{\mathbf{X}}
+\newcommand{\Ybf}{\mathbf{Y}}
+\newcommand{\zbf}{\mathbf{z}}
+\newcommand{\Zbf}{\mathbf{Z}}
+\newcommand{\mubf}{\boldsymbol{\mu}}
+\newcommand{\Gammabf}{\mathbf{\Gamma}}
+\newcommand{\Cbf}{\mathbf{C}}
+\newcommand{\Sigmabf}{\boldsymbol{\Sigma}}
+\newcommand{\zcond}{\mathbf{z}|\mu}
+\newcommand{\signalG}{\mathcal{G}\paren{\mu,\mathbf{k}}}
+\newcommand{\Nscript}{\mathcal{N}}
+\newcommand{\CNscript}{\mathcal{CN}}
+\newcommand{\im}{\mathrm{i}}
+
+\newcommand{\paren}[1]{\left(#1\right)}
+\newcommand{\bracket}[1]{\left[#1\right]}
+\newcommand{\braced}[1]{\left\{#1\right\}}
+\newcommand{\arr}[2]{\begin{array}{#1} #2 \end{array}}
+\newcommand{\parenarray}[2]{\paren{\arr{#1}{#2}}}
+\newcommand{\brkarray}[2]{\bracket{\arr{#1}{#2}}}
+
+\newcommand{\expect}[1]{\mathrm{E}\left[#1\right]}
+\newcommand{\reop}[1]{\operatorname{Re}\paren{#1}}
+\newcommand{\imop}[1]{\operatorname{Im}\paren{#1}}
+
+\newcommand{\qq}{\qquad\qquad}
+
+\newcommand{\CNpdf}[4]{\frac{1}{\pi^k\sqrt{\mathrm{det}\paren{#3}\mathrm{det}\paren{\bar{#3} - \bar{#4}^T#3^{-1}#4}}} \exp\left\{-\frac{1}{2} \paren{\begin{array}{cc}\paren{\bar{#1} - \bar{#2}}^T & \paren{#1 - #2}^T\end{array}} \paren{\begin{array}{cc} #3 & #4 \\ \bar{#4}^T & \bar{#3} \end{array}}\paren{\begin{array}{c} #1 - #2 \\ \bar{#1} - \bar{#2} \end{array}}\right\}}
+
+% END PREAMBLE
+
+\begin{document}                % The start of the document
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Objectives}\label{Objectives}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Work}\label{Work}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Derivations}\label{Derivations}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Multivariate Normal Distribution Representation}
+
+This is the part that is confusing. With the change of variables, $p\paren{\zcond}$ goes from a normal distribution in two-dimensional vector variable $\zbf$ to a normal distribution in one-dimensional scalar variable $\mu$ with two-dimensional mean and covariance matrix.
+\eq{p\paren{\zcond} = \Nscript_\zbf\paren{\mubf_\nu,\Sigmabf_\nu} = \Nscript_\mu\paren{\mubf_{\nu,2},\Sigmabf_{\nu,2}}}
+
+\subsection{Complex Normal Distribution Representation}
+
+\begin{equation}
+	\Zbf = \Xbf + \im\Ybf
+	\qq \Xbf,\Ybf\in\R^k
+\end{equation}
+Bar represents complex conjugate.
+\begin{equation}
+	\mubf = \expect{\Zbf}
+	\qq \Gammabf = \expect{\paren{\Zbf - \mubf}\paren{\bar{\Zbf} - \bar{\mubf}}^T}
+	\qq \Cbf = \expect{\paren{\Zbf - \mubf}\paren{\Zbf - \mubf}}
+\end{equation}
+
+\begin{equation}
+	\CNpdf{\Zbf}{\mubf}{\Gammabf}{\Cbf}
+\end{equation}
+
+\eq{\Gammabf = \mathbf{V_{xx}} + \mathbf{V_{yy}} + \im\paren{\mathbf{V_{yx}} - \mathbf{V_{xy}}}}
+
+\eq{\Gammabf = \mathbf{V_{xx}} - \mathbf{V_{yy}} + \im\paren{\mathbf{V_{yx}} + \mathbf{V_{xy}}}}
+
+\eq{\Rbf = \bar{\Cbf}^T\Gammabf^{-1}}
+
+\eq{\Pbf = \bar{\Gammabf} - \Rbf\Cbf}
+
+\eq{\zcond \sim \Nscript\paren{\signalG,\Sigmabf_\nu} 
+	\qq \mubf_\nu = \bracket{\arr{c}{ \reop{\signalG} \\ \imop{\signalG} }} = \bracket{\arr{c}{ \mubf_{\nu,r} \\ \mubf_{\nu,i} }}
+	\qq \Sigmabf_\nu = \brkarray{cc}{ \sigma_{\nu,r}^2 & 0 \\ 0 & \sigma_{\nu,r}^2 } = \brkarray{cc}{ \sigma_\nu^2 & 0 \\ 0 & \sigma_\nu^2 }}
+
+\eq{\mubf \sim \Nscript\paren{\mubf_\mu,\Sigmabf_\mu}
+	\qq \mubf_\mu = \brkarray{c}{ \mu_\mu \\ 0 }
+	\qq \Sigmabf_\mu = \brkarray{cc}{ \sigma_\mu^2 & 0 \\ 0 & 0 }}
+
+\eq{\arr{c}{ \zcond\sim\CNscript\paren{\mu_\nu,\Gamma_\nu,C_\nu} \\
+	\mu_\nu = \mu_{\nu,r} + \im\mu_{\nu,i} \\
+	\Gamma_\nu = \sigma_\nu^2 + \im\sigma_\nu^2 \\
+	C_\nu = 0 \\
+	R_\nu = 0 \\
+	P_\nu = \sigma_nu^2 - \im\sigma_\nu^2 }}
+
+\eq{\arr{c}{ \mubf \sim \CNscript\paren{\mu_\mu,\Gamma_\mu,C_\mu} \\
+	\mu_\mu = \mu_\mu \\
+	\Gamma_\mu = \sigma_\mu^2 \\
+	C_\mu = \sigma_\mu^2 \\
+	R_\mu = 1 \\
+	P_\mu = 0 }}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Directions}\label{Directions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\end{document}
+
