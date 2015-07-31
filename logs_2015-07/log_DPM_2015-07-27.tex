@@ -71,7 +71,7 @@ Assume normal distribution for the model parameter, optical attenuation coeffici
 \section{Work}\label{Work}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Mutual information can be calculated from the difference of entropies. In the case of normal distributions, it is necessary to know the covariance matrices of the distributions $p\left(z\right)$ and $p\left(z|\mu\right)$.
+Mutual information can be calculated from the difference of entropies. In the case of normal distributions, it is necessary to know the covariance matrices of the distributions $p\left(\mathbf{z}\right)$ and $p\left(\mathbf{z}|\mu\right)$.
 \begin{equation}
 	I\left(\mu;z\right) = H\left(z\right) - H\left(z|\mu\right) 
 	= \frac{1}{2}\ln\left(\left(2\pi e\right)^2\cdot\lvert\Sigma_z\rvert\right) - \frac{1}{2}\ln\left(\left(2\pi e\right)^2\cdot\lvert\Sigma_\nu\rvert\right)
@@ -115,9 +115,9 @@ $\mathrm{E}\left[\left(z_r - \bar{z}_r\right)^2\right]$, $\mathrm{E}\left[\left(
 	\int_{-\infty}^{\infty}e^{-x^2}f\left(x\right)dx \approx \sum_{i=1}^n w_if\left(x_i\right)
 \end{equation}
 
-It is necessary to evaluate the distribution $p\left(z\right)$ before Gauss-Hermite quadrature can be performed to obtain the covariance matrix of $z$. The distribution $p\left(z\right)$ can be shown to be equal to the product of three one-dimensional normal distributions.
+It is necessary to evaluate the distribution $p\left(\mathbf{z}\right)$ before Gauss-Hermite quadrature can be performed to obtain the covariance matrix of $z$. The distribution $p\left(\mathbf{z}\right)$ can be shown to be equal to the product of three one-dimensional normal distributions.
 \begin{equation}
-	p\left(z\right) = \int p\left(z|\mu\right)p\left(\mu\right)d\mu = \int S\frac{1}{\sqrt{2\pi\sigma_{tot}^2}}\exp\left(-\frac{\left(\mu - \mu_{tot}\right)^2}{2\sigma_{tot}^2}\right)d\mu
+	p\left(\mathbf{z}\right) = \int p\left(\mathbf{z}|\mu\right)p\left(\mu\right)d\mu = \int S\frac{1}{\sqrt{2\pi\sigma_{tot}^2}}\exp\left(-\frac{\left(\mu - \mu_{tot}\right)^2}{2\sigma_{tot}^2}\right)d\mu
 \end{equation}
 
 The statistics for normal distribution which results from the product of the three normal distributions are given by the following equations. It should be noted that the normal distribution resulting from the product of multiple normal distributions is not normalized, which can be seen from the factor $S$.
@@ -146,21 +146,25 @@ Change of variables for Gauss-Hermite quadrature is done by the following equati
 	d\mu = \sqrt{2}\sigma_{tot}dx
 \end{equation}
 
-The distribution $p\left(z\right)$ can be evaluated in this manner, but the result is not physical and may not be useful. At the very least it is very difficult to obtain further statistics about the distribution $p\left(z\right)$.
+The distribution $p\left(\mathbf{z}\right)$ can be evaluated in this manner, but the result is not physical and may not be useful. At the very least it is very difficult to obtain further statistics about the distribution $p\left(\mathbf{z}\right)$.
 \begin{equation}
-	p\left(z\right) = S\frac{\sqrt{2}\sigma_{tot}}{\sqrt{2\pi\sigma_{tot}^2}}\int_{-\infty}^\infty e^{-x^2}dx = \frac{S}{\sqrt{\pi}}\left(\sqrt{\pi}\right) = S
+	p\left(\mathbf{z}\right) = S\frac{\sqrt{2}\sigma_{tot}}{\sqrt{2\pi\sigma_{tot}^2}}\int_{-\infty}^\infty e^{-x^2}dx = \frac{S}{\sqrt{\pi}}\left(\sqrt{\pi}\right) = S
+\end{equation}
+
+\begin{equation}
+	p\left(\mathbf{z}\right) = \left[2\pi\sqrt{\frac{\left(\sigma_{\nu,r}/a_r\right)^2\left(\sigma_{\nu,i}/a_i\right)^2\sigma_\mu^2}{\sigma_{tot}^2}}\right]^{-1}\exp\left[-\frac{1}{2}\left(\frac{\left(z_r - b_r\right)^2}{\sigma_{\nu,r}^2} + \frac{\left(z_i - b_i\right)^2}{\sigma_{\nu,i}^2} + \frac{\mu_\mu^2}{\sigma_\mu^2} - \frac{\mu_{tot}^2}{\sigma_{tot}^2}\right)\right]
 \end{equation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Directions}\label{Directions}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The fact that $p\left(z\right)$ depends on values of $\mu < 0$ causes problems. This results from $p\left(\mu\right)\sim\mathcal{N}$. Gauss-Hermite quadrature might not be an option for finite integration bounds. May need to redo the calculation using a uniform distribution for $p\left(\mu\right)$ and Gauss-Legendre quadrature.
+The fact that $p\left(\mathbf{z}\right)$ depends on values of $\mu < 0$ causes problems. This results from $p\left(\mu\right)\sim\mathcal{N}$. Gauss-Hermite quadrature might not be an option for finite integration bounds. May need to redo the calculation using a uniform distribution for $p\left(\mu\right)$ and Gauss-Legendre quadrature.
 
 An analytical evaluation of mutual information $I\left(\mu;z\right)$ might be possible if it is acceptable to represent the optical attenuation coefficient as a complex number, i.e. $\vec{\mu} = \left[ \begin{array}{c} \mu_r \\ 0 \end{array} \right]$. This still leaves the issue of $\mu$ being allowed to be negative, which is unphysical.
 
-The change of variables from $p\left(z|\mu\right) = \mathcal{N}_{\vec{z}}\left(\vec{a}\left(\mu-\hat{\mu}\right)+\vec{b},\Sigma_\nu\right)$ to $p\left(z|\mu\right) = \mathcal{N}_\mu$ is ambiguous. Is it then a one-dimensional normal distribution? Does this treat the complex element correctly? It may be better to investigate the complex normal distribution from the start.
+The change of variables from $p\left(\mathbf{z}|\mu\right) = \mathcal{N}_{\vec{z}}\left(\vec{a}\left(\mu-\hat{\mu}\right)+\vec{b},\Sigma_\nu\right)$ to $p\left(\mathbf{z}|\mu\right) = \mathcal{N}_\mu$ is ambiguous. Is it then a one-dimensional normal distribution? Does this treat the complex element correctly? It may be better to investigate the complex normal distribution from the start.
 
-Also, need to ensure that $p\left(z\right)$ is normalized. Entropy of a normal distribution is likely different for an unnormalized distribution.
+Also, need to ensure that $p\left(\mathbf{z}\right)$ is normalized. Entropy of a normal distribution is likely different for an unnormalized distribution.
 \end{document}
 

@@ -19,7 +19,7 @@ maketex() {	# Arguments: $DIRNAME $FILENAME [$FILESEARCHSTRING] [$VSPLITFILENAME
 \documentclass{article}         % Must use LaTeX 2e
 \usepackage[plainpages=false, colorlinks=true, citecolor=black, filecolor=black, linkcolor=black, urlcolor=black]{hyperref}		
 \usepackage[left=.75in,right=.75in,top=.75in,bottom=.75in]{geometry}
-\usepackage{makeidx,color,boxedminipage}
+\usepackage{makeidx,color,parskip}
 \usepackage{graphicx,float}
 \usepackage{amsmath,amsthm,amsfonts,amscd,amssymb} 
 \allowdisplaybreaks
@@ -54,7 +54,40 @@ maketex() {	# Arguments: $DIRNAME $FILENAME [$FILESEARCHSTRING] [$VSPLITFILENAME
 %	Macros.							     %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\newcommand{\eq}[1]{\begin{equation} #1 \end{equation}}
 
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Pbf}{\mathbf{P}}
+\newcommand{\Rbf}{\mathbf{R}}
+\newcommand{\Vbf}{\mathbf{V}}
+\newcommand{\Xbf}{\mathbf{X}}
+\newcommand{\Ybf}{\mathbf{Y}}
+\newcommand{\zbf}{\mathbf{z}}
+\newcommand{\Zbf}{\mathbf{Z}}
+\newcommand{\mubf}{\boldsymbol{\mu}}
+\newcommand{\Gammabf}{\mathbf{\Gamma}}
+\newcommand{\Cbf}{\mathbf{C}}
+\newcommand{\Sigmabf}{\boldsymbol{\Sigma}}
+\newcommand{\zcond}{\mathbf{z}|\mu}
+\newcommand{\signalG}{\mathcal{G}\paren{\mu,\mathbf{k}}}
+\newcommand{\Nscript}{\mathcal{N}}
+\newcommand{\CNscript}{\mathcal{CN}}
+\newcommand{\im}{\mathrm{i}}
+
+\newcommand{\paren}[1]{\left(#1\right)}
+\newcommand{\bracket}[1]{\left[#1\right]}
+\newcommand{\braced}[1]{\left\{#1\right\}}
+\newcommand{\arr}[2]{\begin{array}{#1} #2 \end{array}}
+\newcommand{\parenarray}[2]{\paren{\arr{#1}{#2}}}
+\newcommand{\brkarray}[2]{\bracket{\arr{#1}{#2}}}
+
+\newcommand{\expect}[1]{\mathrm{E}\left[#1\right]}
+\newcommand{\reop}[1]{\operatorname{Re}\paren{#1}}
+\newcommand{\imop}[1]{\operatorname{Im}\paren{#1}}
+
+\newcommand{\qq}{\qquad\qquad}
+
+\newcommand{\CNpdf}[4]{\frac{1}{\pi^k\sqrt{\mathrm{det}\paren{#3}\mathrm{det}\paren{\bar{#3} - \bar{#4}^T#3^{-1}#4}}} \exp\left\{-\frac{1}{2} \paren{\begin{array}{cc}\paren{\bar{#1} - \bar{#2}}^T & \paren{#1 - #2}^T\end{array}} \paren{\begin{array}{cc} #3 & #4 \\ \bar{#4}^T & \bar{#3} \end{array}}\paren{\begin{array}{c} #1 - #2 \\ \bar{#1} - \bar{#2} \end{array}}\right\}}
 
 % END PREAMBLE
 
