@@ -1,0 +1,273 @@
+\documentclass{article}         % Must use LaTeX 2e
+\usepackage[plainpages=false, colorlinks=true, citecolor=black, filecolor=black, linkcolor=black, urlcolor=black]{hyperref}		
+\usepackage[left=.75in,right=.75in,top=.75in,bottom=.75in]{geometry}
+\usepackage{makeidx,color,parskip}
+\usepackage{graphicx,float}
+\usepackage{amsmath,amsthm,amsfonts,amscd,amssymb} 
+\allowdisplaybreaks
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	Some math support.					     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%	Theorem environments (these need the amsthm package)
+%
+%% \theoremstyle{plain} %% This is the default
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{ax}{Axiom}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{exrcs}{Exercise}
+\newtheorem*{exmple}{Example}
+
+%\numberwithin{equation}{section}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	Macros.							     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\eq}[1]{\begin{equation} #1 \end{equation}}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\abf}{\mathbf{a}}
+\newcommand{\bbf}{\mathbf{b}}
+\newcommand{\Pbf}{\mathbf{P}}
+\newcommand{\Rbf}{\mathbf{R}}
+\newcommand{\Vbf}{\mathbf{V}}
+\newcommand{\Xbf}{\mathbf{X}}
+\newcommand{\Ybf}{\mathbf{Y}}
+\newcommand{\zbf}{\mathbf{z}}
+\newcommand{\Zbf}{\mathbf{Z}}
+\newcommand{\mubf}{\boldsymbol{\mu}}
+\newcommand{\Gammabf}{\mathbf{\Gamma}}
+\newcommand{\Cbf}{\mathbf{C}}
+\newcommand{\Sigmabf}{\boldsymbol{\Sigma}}
+\newcommand{\zcond}{\mathbf{z}|\mu}
+\newcommand{\signalG}{\mathcal{G}\paren{\mu,\mathbf{k}}}
+\newcommand{\Nscript}{\mathcal{N}}
+\newcommand{\CNscript}{\mathcal{CN}}
+\newcommand{\im}{\mathrm{i}}
+
+\newcommand{\paren}[1]{\left(#1\right)}
+\newcommand{\bracket}[1]{\left[#1\right]}
+\newcommand{\braced}[1]{\left\{#1\right\}}
+\newcommand{\arr}[2]{\begin{array}{#1} #2 \end{array}}
+\newcommand{\parenarray}[2]{\paren{\arr{#1}{#2}}}
+\newcommand{\brkarray}[2]{\bracket{\arr{#1}{#2}}}
+
+\newcommand{\expect}[1]{\mathrm{E}\left[#1\right]}
+\newcommand{\intinfty}{\int_{-\infty}^\infty}
+\newcommand{\sumin}{\sum_{i=1}^N}
+\newcommand{\sumkn}{\sum_{k=1}^N}
+\newcommand{\reop}[1]{\operatorname{Re}\paren{#1}}
+\newcommand{\imop}[1]{\operatorname{Im}\paren{#1}}
+
+\newcommand{\qq}{\qquad\qquad}
+
+\newcommand{\CNpdf}[5]{\frac{1}{\pi^{#1}\sqrt{\mathrm{det}\paren{#4}\mathrm{det}\paren{\bar{#4} - \bar{#5}^T#4^{-1}#5}}} \exp\left\{-\frac{1}{2} \paren{\begin{array}{cc}\paren{\bar{#2} - \bar{#3}}^T & \paren{#2 - #3}^T\end{array}} \paren{\begin{array}{cc} #4 & #5 \\ \bar{#5}^T & \bar{#4} \end{array}}\paren{\begin{array}{c} #2 - #3 \\ \bar{#2} - \bar{#3} \end{array}}\right\}}
+
+% END PREAMBLE
+
+\begin{document}                % The start of the document
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Objectives}\label{Objectives}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Calculate mutual information using numerical integration for a complex, linearized signal model $\vec{z}\left(\mu,\vec{k}\right)$.
+
+\begin{equation}
+	\vec{z}\left(\mu,\vec{k}\right) = \int_\Omega M\left(\vec{x}\right) e^{-s\left(\mu ,\vec{x}\right)}e^{-2\pi i\vec{k}\cdot\vec{x}}d\vec{x}+\nu=\mathcal{G}\left(\mu,\vec{k}\right)+\nu
+	\qquad\qquad \nu\sim\mathcal{N}\left(\vec{0},\Sigma_\nu\right)
+	\qquad\qquad \Sigma_\nu = \left[ \begin{array}{cc} 
+		\sigma_{\nu,r}^2 & 0 \\
+		0 & \sigma_{\nu,i}^2 \end{array} \right]
+\end{equation}
+
+Assume normal distribution for the model parameter, optical attenuation coefficient $\mu$.
+
+\begin{equation}
+	\mu\sim\mathcal{N}\left(\vec{\mu}_\mu,\Sigma_\mu\right)
+	\qquad\qquad \vec{\mu}_\mu=\left[ \begin{array}{c}
+		\mu_{\mu,r} \\ 0 \\ \end{array} \right]
+	\qquad\qquad \Sigma_\mu=\left[\begin{array}{cc}
+		\sigma_{\mu,r}^2 & 0 \\
+		0 & 0 \end{array} \right]
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Work}\label{Work}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Derivations}\label{Derivations}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Multivariate Normal Distribution Representation}
+
+This is the part that is confusing. With the change of variables, $p\paren{\zcond}$ goes from a normal distribution in two-dimensional vector variable $\zbf$ to a normal distribution in one-dimensional scalar variable $\mu$ with two-dimensional mean and covariance matrix.
+\eq{p\paren{\zcond} = \Nscript_\zbf\paren{\mubf_\nu,\Sigmabf_\nu} = \Nscript_\mu\paren{\mubf_{\nu,2},\Sigmabf_{\nu,2}}}
+
+\subsection{Complex Normal Distribution Representation}
+
+Given a k-dimensional complex random variable $\Zbf$:
+\begin{equation}
+	\Zbf = \Xbf + \im\Ybf
+	\qq \Xbf,\Ybf\in\R^k
+\end{equation}
+
+If $\Zbf$ follows a complex normal distribution $\Zbf\sim\CNscript\paren{\mubf,\Gammabf,\Cbf}$, the distribution is defined by three parameters, the mean $\mubf$, the covariance matrix $\Gammabf$, and the similarity matrix $\Cbf$. These are defined as follows, where the bar represents the complex conjugate.
+\begin{equation}
+	\mubf = \expect{\Zbf}
+	\qq \Gammabf = \expect{\paren{\Zbf - \mubf}\paren{\bar{\Zbf} - \bar{\mubf}}^T}
+	\qq \Cbf = \expect{\paren{\Zbf - \mubf}\paren{\Zbf - \mubf}}
+\end{equation}
+
+Definition of probability distribution function for complex normal distribution:
+\begin{equation}
+	p\paren{\zbf} = \CNpdf{k}{\Zbf}{\mubf}{\Gammabf}{\Cbf}
+\end{equation}
+
+Covariance matrix in terms of variances and covariances of real vector $\Xbf$ and imaginary vector $\Ybf$:
+\eq{\Gammabf = \mathbf{V_{xx}} + \mathbf{V_{yy}} + \im\paren{\mathbf{V_{yx}} - \mathbf{V_{xy}}}}
+
+Similarity matrix in terms of variances and covariances of real vector $\Xbf$ and imaginary vector $\Ybf$:
+\eq{\Cbf = \mathbf{V_{xx}} - \mathbf{V_{yy}} + \im\paren{\mathbf{V_{yx}} + \mathbf{V_{xy}}}}
+
+\eq{\Rbf = \bar{\Cbf}^T\Gammabf^{-1}}
+
+\eq{\Pbf = \bar{\Gammabf} - \Rbf\Cbf = \bar{\Gammabf} - \bar{\Cbf}^T\Gammabf^{-1}\Cbf}
+
+The conditional distribution $p\paren{\zcond}$ represented as a two-dimensional real normal distribution:
+\eq{\zcond \sim \Nscript\paren{\signalG,\Sigmabf_\nu} 
+	\qquad \mubf_\nu = \bracket{\arr{c}{ \reop{\signalG} \\ \imop{\signalG} }} = \brkarray{c}{ a_r\paren{\mu - \hat{\mu}} + b_r \\ a_i\paren{\mu - \hat{\mu}} + b_i } = \bracket{\arr{c}{ \mu_{\nu,r} \\ \mu_{\nu,i} }}
+	\qquad \Sigmabf_\nu = \brkarray{cc}{ \sigma_{\nu,r}^2 & 0 \\ 0 & \sigma_{\nu,r}^2 } = \brkarray{cc}{ \sigma_\nu^2 & 0 \\ 0 & \sigma_\nu^2 }}
+
+The model parameter distribution $p\paren{\mu}$ represented as a two-dimensional real normal distribution:
+\eq{\mubf \sim \Nscript\paren{\mubf_\mu,\Sigmabf_\mu}
+	\qq \mubf_\mu = \brkarray{c}{ \mu_\mu \\ 0 }
+	\qq \Sigmabf_\mu = \brkarray{cc}{ \sigma_\mu^2 & 0 \\ 0 & 0 }}
+
+The conditional distribution $p\paren{\zcond}$ represented as a one-dimensional complex normal distribution:
+\eq{\arr{c}{ \zcond\sim\CNscript\paren{\mu_\nu,\Gamma_\nu,C_\nu} \\
+	\mu_\nu = \mu_{\nu,r} + \im\mu_{\nu,i} \\
+	\Gamma_\nu = \sigma_\nu^2 + \im\sigma_\nu^2 \\
+	C_\nu = 0 \\
+	R_\nu = 0 \\
+	P_\nu = \sigma_nu^2 - \im\sigma_\nu^2 }}
+The PDF is
+\eq{p\paren{\zcond} = \CNpdf{2}{\zbf}{\mu_\nu}{\Gamma_\nu}{0}} 
+
+The model parameter distribution $p\paren{\mu}$ represented as a one-dimensional complex normal distribution:
+\eq{\arr{c}{ \mubf \sim \CNscript\paren{\mu_\mu,\Gamma_\mu,C_\mu} \\
+	\mu_\mu = \mu_\mu \\
+	\Gamma_\mu = \sigma_\mu^2 \\
+	C_\mu = \sigma_\mu^2 \\
+	R_\mu = 1 \\
+	P_\mu = 0 }}
+The PDF is
+\eq{p\paren{\mu} = \CNpdf{2}{\mubf}{\mu_\mu}{\paren{\sigma_\mu^2}}{\paren{\sigma_\mu^2}}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Directions}\label{Directions}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+$\mubf$ cannot be represented as a complex normal distribution. Because only its real part is distributed and its imaginary part is zero, the denominator blows up in the complex normal PDF. Representing $p\paren{\zcond}$ as a complex normal distribution and $p\paren{\mubf}$ as a one-dimensional real normal distribution has no advantages over the other approaches tried so far.  
+
+It seems that the most straightforward way to solve this problem is through numerical integration. This will require nested Gauss-Legendre quadrature and Gauss-Hermite quadrature. It may also be wise to use a physically possible uniform distribution for $p\paren{\mu}$ if an analytical solution is out of reach.
+
+\begin{equation}
+	I\left(\mu;z\right) = H\left(z\right) - H\left(z|\mu\right) 
+	= \frac{1}{2}\ln\left(\left(2\pi e\right)^2\cdot\lvert\Sigma_z\rvert\right) - \frac{1}{2}\ln\left(\left(2\pi e\right)^2\cdot\lvert\Sigma_\nu\rvert\right)
+\end{equation}
+
+\begin{equation}
+	\Sigma_z = \left[ \begin{array}{cc}
+	\mathrm{E}\left[\left(z_r - \bar{z}_r\right)^2\right] & \mathrm{E}\left[\left(z_r - \bar{z}_r\right)\left(z_i - \bar{z}_i\right)\right] \\
+	\mathrm{E}\left[\left(z_i - \bar{z}_i\right)\left(z_r - \bar{z}_r\right)\right] & \mathrm{E}\left[\left(z_r - \bar{z}_r\right)^2\right] \end{array} \right]
+\end{equation}
+
+$\expect{z_r}$, $\expect{z_i}$, $\expect{\left(z_r - \bar{z}_r\right)^2}$, $\expect{\left(z_i - \bar{z}_i\right)^2}$, and $\expect{\left(z_r - \bar{z}_r\right)\left(z_i - \bar{z}_i\right)}$ all need to be calculated numerically. As one example of this process, take $\expect{z_r}$:
+
+\eq{\expect{z_r} = \int_{-\infty}^\infty\int_{-\infty}^\infty z_r p\paren{\zbf}dz_rdz_i = \int_{-\infty}^\infty\int_{-\infty}^\infty z_r \bracket{\int_{-\infty}^\infty p\paren{\zcond}p\paren{\mu}d\mu}dz_rdz_i}
+\eq{\expect{z_r} = \int_{-\infty}^\infty\int_{-\infty}^\infty z_r \bracket{\int_{-\infty}^\infty \Nscript_{z_r}\paren{a_r\paren{\mu - \hat{\mu}} + b_r,\sigma_\nu^2}\Nscript_{z_i}\paren{a_i\paren{\mu - \hat{\mu}} + b_i,\sigma_\nu^2}\Nscript_\mu\paren{\mu_\mu,\sigma_\mu^2} d\mu}dz_rdz_i}
+OR
+\eq{\expect{z_r} = \int_{-\infty}^\infty\int_{-\infty}^\infty z_r \bracket{\int_{-\infty}^\infty \Nscript_{z_r}\paren{a_r\paren{\mu - \hat{\mu}} + b_r,\sigma_\nu^2}\Nscript_{z_i}\paren{a_i\paren{\mu - \hat{\mu}} + b_i,\sigma_\nu^2}\mathcal{U}_\mu\paren{a_\mu,b_\mu} d\mu}dz_rdz_i}
+
+Gaussian quadrature:
+\eq{\expect{z_r} = \int_{-\infty}^\infty\int_{-\infty}^\infty z_r \bracket{\int_{-\infty}^\infty p\paren{\zcond}p\paren{\mu}d\mu}dz_rdz_i \approx \int_{-\infty}^\infty\int_{-\infty}^\infty z_r \bracket{\Sigma_{i=1}^n w_i p\paren{\zbf|\mu_i}p\paren{\mu_i}}dz_rdz_i} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Numerical Solution to Complex Valued Signal Model}\label{NumericalSoln}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Gaussian quadrature:
+\eq{\expect{z_r} = \int_{-\infty}^\infty\int_{-\infty}^\infty z_r \bracket{\int_{-\infty}^\infty p\paren{\zcond}p\paren{\mu}d\mu}dz_rdz_i \approx \int_{-\infty}^\infty\int_{-\infty}^\infty z_r \bracket{\Sigma_{i=1}^n w_i p\paren{\zbf|\mu_i}p\paren{\mu_i}}dz_rdz_i} 
+
+Substitution for normal distributions using Gauss-Hermite quadrature:
+\eq{\expect{h\paren{y}} = \intinfty\frac{1}{\sigma\sqrt{2\pi}}\exp\paren{-\frac{\paren{y-\mu}^2}{2\sigma^2}}h\paren{y}dy}
+
+\eq{x = \frac{y-\mu}{\sqrt{2}\sigma} \Leftrightarrow y = \sqrt{2}\sigma x+\mu}
+
+\eq{\expect{h\paren{y}} = \intinfty\frac{1}{\sqrt{\pi}}\exp\paren{-x^2}h\paren{\sqrt{2}\sigma x+\mu}dx}
+
+\eq{\expect{h\paren{y}} \approx \frac{1}{\sqrt{\pi}}\sumin\omega_i h\paren{\sqrt{2}\sigma x_i+\mu}}
+
+Reza's idea:
+\eq{\bar{z} = \expect{z} = \int zp\paren{z}dz}
+
+\eq{p\paren{z} = \int p\paren{z|\mu}p\paren{\mu}d\mu \approx \sum_i\omega_i p\paren{z|\mu_i}}
+
+\eq{\bar{z} = \int zp\paren{z}dz \approx \int z\sum_i \omega_i p\paren{z|\mu_i}dz = \sum_i\omega_i\int zp\paren{z|\mu_i}dz = \sum_i\omega_i\bar{z}_i}
+
+\eq{\omega_i = \mathrm{Gauss\operatorname{-}Hermite\ weights}; \qq \bar{z}_i = \abf\paren{\mu_i-\hat{\mu}}+\bbf}
+
+\eq{\Sigma_z = \expect{\paren{z-\bar{z}}\paren{z-\bar{z}}^T} = \int\paren{z-\bar{z}}^2 p\paren{z}dz \approx \int\paren{z-\bar{z}}^2\sum_i\omega_i p\paren{z|\mu_i}dz = \sum_i\omega_i\int\paren{z-\bar{z}}^2 p\paren{z|\mu_i}dz = \sum_i\omega_i\Sigma_{z,i}}
+
+More (still requires substitution for Gauss-Hermite quadrature):
+\eq{p\paren{\zbf|\mu} = \Nscript_\zbf\paren{\mathbf{g},\Sigmabf_\nu} = \Nscript_{z_r}\paren{g_r,\sigma_\nu}\Nscript_{z_i}\paren{g_i,\sigma_\nu}}
+
+\eq{p\paren{\zbf} = \intinfty p\paren{\zbf|\mu}p\paren{\mu}d\mu \approx \sumkn\omega_k p\paren{\zbf|\mu_k} = \sumkn\omega_k\Nscript_{z_r}\paren{g_r\paren{\mu_k},\sigma_\nu}\Nscript_{z_i}\paren{g_i\paren{\mu_k},\sigma_\nu}}
+
+\eq{\mathbf{g} = \brkarray{c}{g_r \\ g_i} = \brkarray{c}{a_r\paren{\mu-\hat{\mu}}+b_r \\ a_i\paren{\mu-\hat{\mu}}+b_i}}
+
+%\eq{\expect{z_r} = \intinfty\intinfty z_r\Nscript_{z_r}\paren{g_r,\sigma_\nu}\Nscript_{z_i}\paren{g_i,\sigma_\nu}dz_rdz_i = \intinfty z_r\Nscript_{z_r}\paren{g_r,\sigma_\nu}dz_r}
+
+\eq{\expect{z_r} = \intinfty\intinfty z_r p\paren{\zbf}dz_rdz_i \approx \intinfty\intinfty z_r\sumkn\omega_k\Nscript_{z_r}\paren{g_r\paren{\mu_k},\sigma_\nu}\Nscript_{z_i}\paren{g_i\paren{\mu_k},\sigma_\nu}dz_rdz_i} 
+\eq{\expect{z_r} = \sumkn\omega_k\paren{\intinfty z_r\Nscript_{z_r}\paren{g_r\paren{\mu_k},\sigma_\nu}dz_r\intinfty\Nscript_{z_i}\paren{g_i\paren{\mu_k},\sigma_\nu}dz_i} = \sumkn\omega_k g_r\paren{\mu_k}}
+
+%\eq{\expect{z_i} = \intinfty\intinfty z_i\Nscript_{z_r}\paren{g_r,\sigma_\nu}\Nscript_{z_i}\paren{g_i,\sigma_\nu}dz_rdz_i = \intinfty z_i\Nscript_{z_i}\paren{g_i,\sigma_\nu}dz_i}
+
+\eq{\expect{z_i} = \sumkn\omega_k g_i\paren{\mu_k}}
+
+\eq{\expect{\zbf} = \brkarray{c}{\expect{z_r} \\ \expect{z_i}}}
+
+%\eq{\expect{\paren{z_r-\expect{z_r}}^2} = \intinfty\paren{z_r-\expect{z_r}}^2\Nscript_{z_r}\paren{g_r,\sigma_\nu}dz_r}
+
+\eq{\expect{\paren{z_r-\expect{z_r}}^2} = \intinfty\intinfty \paren{z_r-\expect{z_r}}^2 p\paren{\zbf}dz_rdz_i \approx \intinfty\intinfty \paren{z_r-\expect{z_r}}^2\sumkn\omega_k\Nscript_{z_r}\paren{g_r\paren{\mu_k},\sigma_\nu}\Nscript_{z_i}\paren{g_i\paren{\mu_k},\sigma_\nu}dz_rdz_i} 
+\eq{\expect{\paren{z_r-\expect{z_r}}^2} = \sumkn\omega_k\paren{\intinfty \paren{z_r-\expect{z_r}}^2\Nscript_{z_r}\paren{g_r\paren{\mu_k},\sigma_\nu}dz_r\intinfty\Nscript_{z_i}\paren{g_i\paren{\mu_k},\sigma_\nu}dz_i} = \sumkn\omega_k \sigma_\nu = \sigma_\nu}
+
+%\eq{\expect{\paren{z_i-\expect{z_i}}^2} = \intinfty\paren{z_i-\expect{z_i}}^2\Nscript_{z_i}\paren{g_i,\sigma_\nu}dz_i}
+
+\eq{\expect{\paren{z_i-\expect{z_i}}^2} = \sigma_\nu}
+
+\eq{\expect{\paren{z_r-\expect{z_r}}\paren{z_i-\expect{z_i}}} = \expect{\paren{z_i-\expect{z_i}}\paren{z_r-\expect{z_r}}}}
+
+\eq{\expect{\paren{z_r-\expect{z_r}}\paren{z_i-\expect{z_i}}} = \sumkn\omega_k\paren{\intinfty \paren{z_r-\expect{z_r}}\Nscript_{z_r}\paren{g_r\paren{\mu_k},\sigma_\nu}dz_r\intinfty\paren{z_i-\expect{z_i}}\Nscript_{z_i}\paren{g_i\paren{\mu_k},\sigma_\nu}dz_i}}
+
+% \paren{\intinfty\paren{z_r-\expect{z_r}}\Nscript_{z_r}\paren{g_r,\sigma_\nu}dz_r}\paren{\intinfty\paren{z_i-\expect{z_i}}\Nscript_{z_i}\paren{g_i,\sigma_\nu}dz_i}}
+
+\end{document}
+
