@@ -206,6 +206,8 @@ $\expect{z_r}$, $\expect{z_i}$, $\expect{\left(z_r - \bar{z}_r\right)^2}$, $\exp
 OR
 \eq{\expect{z_r} = \int_{-\infty}^\infty\int_{-\infty}^\infty z_r \bracket{\int_{-\infty}^\infty \Nscript_{z_r}\paren{a_r\paren{\mu - \hat{\mu}} + b_r,\sigma_\nu^2}\Nscript_{z_i}\paren{a_i\paren{\mu - \hat{\mu}} + b_i,\sigma_\nu^2}\mathcal{U}_\mu\paren{a_\mu,b_\mu} d\mu}dz_rdz_i}
 
+$\int p(z|\mu)p(\mu)$ can probably be calculated analytically using [Bromiley 2003]. The product of three normal distributions is a scaled normal distribution, so after converting $N_{z_i}$ and $N_{z_r}$ to distributions in terms of $\mu$ for the integration, the normal distribution integrates to 1, and the scaling factor comes out as a function of $z_r$ and $z_i$, $S_{fgh}\paren{z_r,z_i}$, for the remaining two integrals. This leaves potentially very difficult numerical integrations at this step.
+
 Gaussian quadrature:
 \eq{\expect{z_r} = \int_{-\infty}^\infty\int_{-\infty}^\infty z_r \bracket{\int_{-\infty}^\infty p\paren{\zcond}p\paren{\mu}d\mu}dz_rdz_i \approx \int_{-\infty}^\infty\int_{-\infty}^\infty z_r \bracket{\Sigma_{i=1}^n w_i p\paren{\zbf|\mu_i}p\paren{\mu_i}}dz_rdz_i} 
 
@@ -218,6 +220,7 @@ Gaussian quadrature:
 
 Substitution for normal distributions using Gauss-Hermite quadrature:
 \eq{\expect{h\paren{y}} = \intinfty\frac{1}{\sigma\sqrt{2\pi}}\exp\paren{-\frac{\paren{y-\mu}^2}{2\sigma^2}}h\paren{y}dy}
+$h$ is some function of $y$, and random variable $Y$ is normally distributed.
 
 \eq{x = \frac{y-\mu}{\sqrt{2}\sigma} \Leftrightarrow y = \sqrt{2}\sigma x+\mu}
 

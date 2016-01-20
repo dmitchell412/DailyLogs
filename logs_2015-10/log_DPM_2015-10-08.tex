@@ -1,0 +1,284 @@
+\documentclass{article}         % Must use LaTeX 2e
+\usepackage[plainpages=false, colorlinks=true, citecolor=black, filecolor=black, linkcolor=black, urlcolor=black]{hyperref}		
+\usepackage[left=.75in,right=.75in,top=.75in,bottom=.75in]{geometry}
+\usepackage{makeidx,color,parskip}
+\usepackage{graphicx,float}
+\usepackage{amsmath,amsthm,amsfonts,amscd,amssymb} 
+\allowdisplaybreaks
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	Some math support.					     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%	Theorem environments (these need the amsthm package)
+%
+%% \theoremstyle{plain} %% This is the default
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{ax}{Axiom}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{exrcs}{Exercise}
+\newtheorem*{exmple}{Example}
+
+%\numberwithin{equation}{section}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	Macros.							     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\eq}[1]{\begin{equation} #1 \end{equation}}
+\newcommand{\eqn}[1]{\begin{equation*} #1 \end{equation*}}
+\newcommand{\ml}[1]{\begin{multline} #1 \end{multline}}
+\newcommand{\mln}[1]{\begin{multline*} #1 \end{multline*}}
+\newcommand{\spl}[1]{\begin{split} #1 \end{split}}
+\newcommand{\eqsp}[1]{\begin{equation}\begin{split} #1 \end{split}\end{equation}}
+\newcommand{\eqspn}[1]{\begin{equation*}\begin{split} #1 \end{split}\end{equation*}}
+\newcommand{\al}[1]{\begin{align} #1 \end{align}}
+\newcommand{\aln}[1]{\begin{align*} #1 \end{align*}}
+\newcommand{\gt}[1]{\begin{gather} #1 \end{gather}}
+\newcommand{\gtn}[1]{\begin{gather*} #1 \end{gather*}}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\mbf}{\mathbf{m}}
+\newcommand{\Pbf}{\mathbf{P}}
+\newcommand{\Rbf}{\mathbf{R}}
+\newcommand{\Vbf}{\mathbf{V}}
+\newcommand{\xbf}{\mathbf{x}}
+\newcommand{\Xbf}{\mathbf{X}}
+\newcommand{\Ybf}{\mathbf{Y}}
+\newcommand{\zbf}{\mathbf{z}}
+\newcommand{\Zbf}{\mathbf{Z}}
+\newcommand{\mubf}{\boldsymbol{\mu}}
+\newcommand{\nubf}{\boldsymbol{\nu}}
+\newcommand{\Gammabf}{\mathbf{\Gamma}}
+\newcommand{\Cbf}{\mathbf{C}}
+\newcommand{\Sigmabf}{\boldsymbol{\Sigma}}
+\newcommand{\zcond}{\mathbf{z}\middle|\mu}
+\newcommand{\zcondbf}{\mathbf{z}\middle|\boldsymbol{\mu}}
+\newcommand{\signalG}{\mathcal{G}\paren{\mu,\mathbf{k}}}
+\newcommand{\Gscript}{\mathcal{G}}
+\newcommand{\Nscript}{\mathcal{N}}
+\newcommand{\CNscript}{\mathcal{CN}}
+\newcommand{\im}{\mathrm{i}}
+
+\newcommand{\paren}[1]{\left(#1\right)}
+\newcommand{\bracket}[1]{\left[#1\right]}
+\newcommand{\braced}[1]{\left\{#1\right\}}
+\newcommand{\arr}[2]{\begin{array}{#1} #2 \end{array}}
+\newcommand{\parenarray}[2]{\paren{\arr{#1}{#2}}}
+\newcommand{\brkarray}[2]{\bracket{\arr{#1}{#2}}}
+
+\newcommand{\expect}[1]{\mathrm{E}\left[#1\right]}
+\newcommand{\intinfty}{\int\limits_{-\infty}^\infty}
+\newcommand{\prodin}{\prod\limits_{i=1}^N}
+\newcommand{\sumin}{\sum\limits_{i=1}^N}
+\newcommand{\sumkn}{\sum\limits_{k=1}^N}
+\newcommand{\sumnn}{\sum\limits_{n=1}^N}
+\newcommand{\summn}{\sum\limits_{m=1}^N}
+\newcommand{\sumpp}{\sum\limits_{p=1}^P}
+\newcommand{\sumqq}{\sum\limits_{q=1}^Q}
+\newcommand{\sumqone}{\sum\limits_{q_1=1}^{Q_1}}
+\newcommand{\sumqN}{\sum\limits_{q_N=1}^{Q_N}}
+\newcommand{\reop}[1]{\operatorname{Re}\paren{#1}}
+\newcommand{\imop}[1]{\operatorname{Im}\paren{#1}}
+
+\newcommand{\qq}{\qquad\qquad}
+
+\newcommand{\normpdf}[3]{\frac{1}{\sqrt{2\pi}#3}\exp\paren{-\frac{\paren{#1-#2}^2}{2#3^2}}}
+\newcommand{\CNpdf}[4]{\frac{1}{\pi^k\sqrt{\mathrm{det}\paren{#3}\mathrm{det}\paren{\bar{#3} - \bar{#4}^T#3^{-1}#4}}} \exp\left\{-\frac{1}{2} \paren{\begin{array}{cc}\paren{\bar{#1} - \bar{#2}}^T & \paren{#1 - #2}^T\end{array}} \paren{\begin{array}{cc} #3 & #4 \ \bar{#4}^T & \bar{#3} \end{array}}\paren{\begin{array}{c} #1 - #2 \ \bar{#1} - \bar{#2} \end{array}}\right\}}
+
+% END PREAMBLE
+
+\begin{document}                % The start of the document
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Objectives}\label{Objectives}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The objective is to solve the mutual information calculation for the complex signal model and $N$ tissue types.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Work}\label{Work}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Probability Distribution Definitions}\label{Probability Distribution Definitions}
+
+Calculate mutual information using numerical integration for a complex signal model $\mathbf{z}\left(\mubf,\mathbf{k}\right)$.
+\eq{\mathbf{z}\left(\mubf,\mathbf{k}\right) = \int_\Omega M\left(\mathbf{x}\right) e^{-s\left(\mubf ,\mathbf{x}\right)}e^{-2\pi i\mathbf{k}\cdot\mathbf{x}}d\mathbf{x}+\nubf=\mathcal{G}\left(\mubf,\mathbf{k}\right)+\nubf}
+
+\eq{s\left(\mubf,\mathbf{x}\right)=\frac{T_E}{T_2^*\left(\mathbf{x}\right)}+i\left[2\pi\gamma\alpha B_0 T_E
+\Delta u\left(\mubf,\mathbf{x}\right)+T_E\Delta\omega_0\left(\mathbf{x}\right)\right]}
+
+\eq{\nubf\sim\mathcal{N}\left(\mathbf{0},\mathbf{\Sigma}_\nu\right) \qq \mathbf{\Sigma}_\nu = \left[ \begin{array}{cc} 
+		\sigma_{\nu,r}^2 & 0 \\
+		0 & \sigma_{\nu,i}^2 \end{array} \right]}
+
+Therefore, the probability distribution for $p\paren{\zbf\middle|\mubf}$ is
+\eq{p\paren{\zbf\middle|\mubf} = \Nscript\paren{\Gscript\paren{\mubf},\mathbf{\Sigma}_\nu}}
+
+The tissue properties can described by the following piecewise functions.
+\eq{\mubf\paren{\xbf} = \sumnn\mubf_nU\paren{\xbf-\Omega_n}}
+\eq{\bigcup_{n=1}^N\Omega_n = \Omega \qq \Omega_n\cap\Omega_m = \varnothing}
+\eq{U\paren{\xbf-\Omega_n} = \left\{\arr{l}{1, \quad x\in\Omega_n \\ 0, \quad \mathrm{otherwise}}\right.}
+
+Assume normal distribution for the model parameter, optical attenuation coefficient $\mubf$.
+\eq{p\paren{\mubf} = \mathcal{N}\left(\mbf_\mu,\mathbf{\Sigma}_\mu\right)}
+\eq{\mbf_\mu = \brkarray{c}{m_{\mu_1} \\ \vdots \\ m_{\mu_N}} \qq
+\Sigmabf_\mu = \brkarray{ccccc}{
+	\sigma_{\mu_1} & 0 & \cdots & 0 & 0 \\
+	0 & \sigma_{\mu_2} & 0 & \ddots & 0 \\
+	\vdots & \ddots & \ddots & \ddots & \vdots \\
+	0 & \ddots & 0 & \sigma_{\mu_{N-1}} & 0 \\
+	0 & 0 & \cdots & 0 & \sigma_{\mu_N} \\}}
+
+Also of note, because the real and imaginary components of $\zbf$ are assumed independent, the covariance matrix $\Sigmabf_z$ is diagonal, and the following simplification results.
+\eq{p\paren{\zbf\middle|\mubf} = \Nscript_\zbf\paren{\Gscript\paren{\mubf},\mathbf{\Sigma}_\nu} = \Nscript_{z_r}\paren{\Gscript_r\paren{\mubf},\mathbf{\Sigma}_\nu}
+\Nscript_{z_i}\paren{\Gscript_i\paren{\mubf},\mathbf{\Sigma}_\nu} = p\paren{z_r\middle|\mubf}p\paren{z_i\middle|\mubf}}
+
+Similarly, the various tissue types are independent, and the covariance matrix $\Sigmabf_\mu$ is also diagonal.
+\eq{p\paren{\mubf} = \Nscript_{\mubf}\paren{\mbf_\mu,\Sigmabf_\mu} = \prodin\Nscript_{\mu_i}\paren{m_{\mu_i},\sigma_{\mu_i}} = \prodin p\paren{\mu_i}}
+
+\subsection{Problem Statement}\label{Problem Statement}
+
+The most approachable way to solve mutual information is to begin with the difference of entropies definition.
+\eq{I\left(\mubf;\zbf\right) = H\left(\zbf\right) - H\left(\zbf|\mubf\right) 
+= \frac{1}{2}\ln\left(\left(2\pi e\right)^2\cdot\lvert\mathbf{\Sigma}_z\rvert\right) - \frac{1}{2}\ln\left(\left(2\pi e\right)^2\cdot\lvert\mathbf{\Sigma}_\nu\rvert\right)}
+
+Assuming $\sigma_{\nu,r}^2=\sigma_{\nu,i}^2$, then
+\eq{\lvert\mathbf{\Sigma}_\nu\rvert = \sigma_\nu^2\sigma_\nu^2-0 = \sigma_\nu^4}
+
+Calculation of $\mathbf{\Sigma}_z$ is less straightforward.
+\eq{\mathbf{\Sigma}_z = \left[ \begin{array}{cc}
+\mathrm{E}\left[\left(z_r - \expect{z_r}\right)^2\right] & \mathrm{E}\left[\left(z_r - \expect{z_r}\right)\left(z_i - \expect{z_i}\right)\right] \\
+\mathrm{E}\left[\left(z_i - \expect{z_i}\right)\left(z_r - \expect{z_r}\right)\right] & \mathrm{E}\left[\left(z_i - \expect{z_i}\right)^2\right] \end{array} \right]}
+
+$\expect{z_r}$, $\expect{z_i}$, $\expect{\left(z_r - \expect{z_r}\right)^2}$, $\expect{\left(z_i - \expect{z_i}\right)^2}$, and $\expect{\left(z_r - \expect{z_r}\right)\left(z_i - \expect{z_i}\right)}$ all need to be calculated numerically.
+ 
+Alternatively, $\int p(z|\mu)p(\mu)$ can probably be calculated analytically using [Bromiley 2003]. The product of three normal distributions is a scaled normal distribution, so after converting $N_{z_i}$ and $N_{z_r}$ to distributions in terms of $\mu$ for the integration, the normal distribution integrates to 1, and the scaling factor comes out as a function of $z_r$ and $z_i$, $S_{fgh}\paren{z_r,z_i}$, for the remaining two integrals. This leaves potentially very difficult numerical integrations at this step.
+
+\subsection{Gauss-Hermite Quadrature}
+
+Gaussian quadrature:
+\eq{\intinfty\exp^{-x^2}f\paren{x}dx \approx \sumin\omega_if\paren{x_i}}
+\eq{\omega_i = \frac{2^{n-1}n!\sqrt{\pi}}{n^2\bracket{H_{n-1}\paren{x_i}}^2}}
+where $n$ is the number of sample points used, $H_n\paren{x}$ is the physicists' Hermite polynomial, $x_i$ are the roots of the Hermite polynomial, and $\omega_i$ are the associated Gauss-Hermite weights.
+
+Substitution for normal distributions using Gauss-Hermite quadrature:
+\eq{\expect{h\paren{y}} = \intinfty\frac{1}{\sigma\sqrt{2\pi}}\exp\paren{-\frac{\paren{y-\mu}^2}{2\sigma^2}}h\paren{y}dy}
+$h$ is some function of $y$, and random variable $Y$ is normally distributed.
+
+\eq{x = \frac{y-\mu}{\sqrt{2}\sigma} \Leftrightarrow y = \sqrt{2}\sigma x+\mu}
+
+\eq{\expect{h\paren{y}} = \intinfty\frac{1}{\sqrt{\pi}}\exp\paren{-x^2}h\paren{\sqrt{2}\sigma x+\mu}dx}
+
+\eq{\expect{h\paren{y}} \approx \frac{1}{\sqrt{\pi}}\sumin\omega_i h\paren{\sqrt{2}\sigma x_i+\mu}}
+
+\subsection{Mutual Information Calculation}
+
+\eq{I\left(\mubf;\zbf\right) = H\left(\zbf\right) - H\left(\zbf\middle|\mubf\right) = \frac{1}{2}\ln\left(\left(2\pi e\right)^2\cdot\lvert\Sigmabf_z\rvert\right) - \frac{1}{2}\ln\left(\left(2\pi e\right)^2\cdot\lvert\Sigmabf_\nu\rvert\right)}
+
+\eq{\lvert\mathbf{\Sigma}_\nu\rvert = \sigma_\nu^2\sigma_\nu^2-0 = \sigma_\nu^4}
+
+\eq{\mathbf{\Sigma}_z = \left[ \begin{array}{cc}
+	\mathrm{E}\left[\left(z_r - \expect{z_r}\right)^2\right] & \mathrm{E}\left[\left(z_r - \expect{z_r}\right)\left(z_i - \expect{z_i}\right)\right] \\
+	\mathrm{E}\left[\left(z_i - \expect{z_i}\right)\left(z_r - \expect{z_r}\right)\right] & \mathrm{E}\left[\left(z_i - \expect{z_i}\right)^2\right] \end{array} \right]}
+
+\eq{p\paren{\zbf} = \int p\paren{\zbf\middle|\mubf}p\paren{\mubf}d\mubf}
+
+\eq{p\paren{\zbf\middle|\mubf} = \Nscript_\zbf\paren{\mathbf{\Gscript}\paren{\mubf},\Sigmabf_\nu} = \Nscript_{z_r}\paren{\Gscript_r\paren{\mubf},\sigma_\nu}\Nscript_{z_i}\paren{\Gscript_i\paren{\mubf},\sigma_\nu} = p\paren{z_r\middle|\mubf}p\paren{z_i\middle|\mubf}}
+
+\eq{p\paren{\mubf} = \Nscript_{\mubf}\paren{\mbf_\mu,\Sigmabf_\mu} = \prodin\Nscript_{\mu_i}\paren{m_{\mu_i},\sigma_{\mu_i}} = \prodin p\paren{\mu_i}}
+
+The signal measurement probability distribution $p\paren{\zbf}$ can be approximated using Gauss-Hermite quadrature. The calculation is performed separately for the real and imaginary components, $p\paren{z_r}$ and $p\paren{z_i}$, because $z_r$ and $z_i$ are assumed independent.
+\al{p\paren{z_r} &= \intinfty\cdots\intinfty p\paren{z_r\middle|\mu_1,\cdots,\mu_N}\prodin p\paren{\mu_i}d\mu_1\cdots d\mu_N \\
+&= \intinfty\cdots\intinfty\prodin\normpdf{\mu_i}{m_{\mu_i}}{\sigma_{\mu_i}}p\paren{z_r\middle|\mu_1,\cdots,\mu_N}d\mu_1\cdots d\mu_N \\
+&= \intinfty\cdots\intinfty\prodin\frac{1}{\sqrt{\pi}}\exp\paren{-x_i^2}p\paren{z_r\middle|\paren{\sqrt{2}\sigma_{\mu_1} x_1+m_{\mu_1},\cdots,\sqrt{2}\sigma_{\mu_N} x_N+m_{\mu_N}}}dx_1\cdots dx_N \\
+&\approx \pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}p\paren{z_r\middle|\paren{\sqrt{2}\sigma_{\mu_1} x_1+m_{\mu_1},\cdots,\sqrt{2}\sigma_{\mu_N} x_N+m_{\mu_N}}} \\
+&= \pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}p\paren{z_r\middle|\mu_{1,q},\cdots,\mu_{N,q}}} 
+\eq{\left\{\arr{l}{\mu_{1,q} = \sqrt{2}\sigma_{\mu_1}x_{1,q}+m_{\mu_1} \\ \vdots \\ \mu_{N,q} = \sqrt{2}\sigma_{\mu_N}x_{N,q}+m_{\mu_N}}\right.}
+
+An identical calculation for the imaginary component results in
+\eq{p\paren{z_i} = \pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}p\paren{z_i\middle|\mu_{1,q},\cdots,\mu_{N,q}}}
+\eq{\left\{\arr{l}{\mu_{1,q} = \sqrt{2}\sigma_{\mu_1}x_{1,q}+m_{\mu_1} \\ \vdots \\ \mu_{N,q} = \sqrt{2}\sigma_{\mu_N}x_{N,q}+m_{\mu_N}}\right.}
+
+Calculate expectation values for real and imaginary components by definition and approximating $p\paren{\zbf}$ with Gauss-Hermite quadrature as shown above.
+\al{\expect{z_r} &= \int z_r p\paren{z_r}dz_r \approx \int z_r\pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}p\paren{z_r\middle|\mu_{1,q},\cdots,\mu_{N,q}}dz_r \\
+&= \pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\int z_rp\paren{z_r\middle|\mu_{1,q},\cdots,\mu_{N,q}}dz_r \\
+&=\pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\expect{z_r\middle|\mu_{1,q},\cdots,\mu_{N,q}} \\
+&= \pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\Gscript_r\paren{\mu_{1,q},\cdots,\mu_{N,q}}}
+
+Similarly for the imaginary component,
+\eq{\expect{z_i} \approx \pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\expect{z_i\middle|\mu_{1,q},\cdots,\mu_{N,q}} = \pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\Gscript_i\paren{\mu_{1,q},\cdots,\mu_{N,q}}}
+
+The variance can be calculated as follows:
+\al{\expect{\paren{z_r-\expect{z_r}}^2} &= \expect{z_r^2}-\paren{\expect{z_r}}^2 = \int z_r^2p\paren{z_r}dz_r-\paren{\expect{z_r}}^2 \\
+&\approx \int z_r^2\pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}p\paren{z_r|\mu_{1,q},\cdots,\mu_{N,q}}dz_r-\paren{\expect{z_r}}^2 \\
+&= \pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\int z_r^2p\paren{z_r|\mu_{1,q},\cdots,\mu_{N,q}}dz_r-\paren{\expect{z_r}}^2 \\
+&= \pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\int z_r^2\normpdf{z_r}{\Gscript_r\paren{\mu_{1,q},\cdots,\mu_{N,q}}}{\sigma_\nu}dz_r-\paren{\expect{z_r}}^2 \\
+&= \pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\int\paren{x^2\sigma_\nu^2+2x\sigma_\nu\Gscript_r\paren{\mu_{1,q},\cdots,\mu_{N,q}}+\Gscript_r^2\paren{\mu_{1,q},\cdots,\mu_{N,q}}} \notag \\
+&\qq\qq\cdot\frac{1}{\sqrt{2\pi}}\exp\paren{-\frac{x^2}{2}}dx-\paren{\expect{z_r}}^2 \\
+&= \pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\paren{\sigma_\nu^2+\Gscript_r^2\paren{\mu_{1,q},\cdots,\mu_{N,q}}}-\paren{\expect{z_r}}^2 \\
+&= \pi^{-N/2}\sigma_\nu^2+\pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\Gscript_r^2\paren{\mu_{1,q},\cdots,\mu_{N,q}}-\paren{\expect{z_r}}^2}
+
+\eq{\left\{\arr{l}{\mu_{1,q} = \sqrt{2}\sigma_{\mu_1}x_{1,q}+m_{\mu_1} \\ \vdots \\ \mu_{N,q} = \sqrt{2}\sigma_{\mu_N}x_{N,q}+m_{\mu_N}}\right.}
+
+Again, an identical calculation for the imaginary component yields
+\eq{\expect{\paren{z_i-\expect{z_i}}^2} = \pi^{-N/2}\sigma_\nu^2+\pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\Gscript_i^2\paren{\mu_{1,q},\cdots,\mu_{N,q}}-\paren{\expect{z_i}}^2}
+\eq{\left\{\arr{l}{\mu_{1,q} = \sqrt{2}\sigma_{\mu_1}x_{1,q}+m_{\mu_1} \\ \vdots \\ \mu_{N,q} = \sqrt{2}\sigma_{\mu_N}x_{N,q}+m_{\mu_N}}\right.}
+
+The off-diagonal elements of $\Sigma_z$ are equal.
+\eq{\expect{\paren{z_r-\expect{z_r}}\paren{z_i-\expect{z_i}}} = \expect{\paren{z_i-\expect{z_i}}\paren{z_r-\expect{z_r}}}}
+
+\al{&\expect{\paren{z_r-\expect{z_r}}\paren{z_i-\expect{z_i}}} = \int\paren{z_r-\expect{z_r}}\paren{z_i-\expect{z_i}}p\paren{\zbf}d\zbf \\
+&\qq= \int\paren{z_r-\expect{z_r}}\paren{z_i-\expect{z_i}}\int p\paren{\zbf\middle|\mubf}p\paren{\mubf}d\zbf \\
+&\qq\approx \int\paren{z_r-\expect{z_r}}\paren{z_i-\expect{z_i}}\pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}p\paren{\zbf\middle|\mu_{1,q},\cdots,\mu_{N,q}}d\zbf \\
+&\qq= \int\paren{z_r-\expect{z_r}}\paren{z_i-\expect{z_i}}\pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}p\paren{z_r|\mu_{1,q},\cdots,\mu_{N,q}}p\paren{z_i|\mu_{1,q},\cdots,\mu_{N,q}}d\zbf \\
+&\qq= \pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\int\paren{z_r-\expect{z_r}}p\paren{z_r|\mu_{1,q},\cdots,\mu_{N,q}}dz_r \notag \\
+&\qq\qq\qq\cdot\int\paren{z_i-\expect{z_i}}p\paren{z_i|\mu_{1,q},\cdots,\mu_{N,q}}dz_i \\
+&\qq=\pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\int\paren{z_r-\expect{z_r}}\normpdf{z_r}{\Gscript_r\paren{\mu_{1,q},\cdots,\mu_{N,q}}}{\sigma_\nu}dz_r \notag \\
+&\qq\qq\qq\cdot\int\paren{z_i-\expect{z_i}}\normpdf{z_i}{\Gscript_i\paren{\mu_{1,q},\cdots,\mu_{N,q}}}{\sigma_\nu}dz_i \\
+&\qq=\pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\int\paren{\sigma_\nu x+\Gscript_r\paren{\mu_{1,q},\cdots,\mu_{N,q}}-\expect{z_r}}\frac{1}{\sqrt{2\pi}}\exp\paren{-\frac{x^2}{2}}dx \notag \\
+&\qq\qq\qq\cdot\int\paren{\sigma_\nu y+\Gscript_i\paren{\mu_{1,q},\cdots,\mu_{N,q}}-\expect{z_i}}\frac{1}{\sqrt{2\pi}}\exp\paren{-\frac{y^2}{2}}dy \\
+&\qq= \pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\paren{\paren{\Gscript_r\paren{\mu_{1,q},\cdots,\mu_{N,q}}-\expect{z_r}}\paren{\Gscript_i\paren{\mu_{1,q},\cdots,\mu_{N,q}}-\expect{z_i}}} \\
+&\qq= \pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\left(\Gscript_r\paren{\mu_{1,q},\cdots,\mu_{N,q}}\Gscript_i\paren{\mu_{1,q},\cdots,\mu_{N,q}}-\Gscript_r\paren{\mu_{1,q},\cdots,\mu_{N,q}}\expect{z_i}\right. \notag \\
+&\qq\qq\qq\left.-\Gscript_i\paren{\mu_{1,q},\cdots,\mu_{N,q}}\expect{z_r}+\expect{z_r}\expect{z_i}\right) \\
+&\qq= \pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\Gscript_r\paren{\mu_{1,q},\cdots,\mu_{N,q}}\Gscript_i\paren{\mu_{1,q},\cdots,\mu_{N,q}}-\expect{z_r}\expect{z_i}}
+
+%\ml{\Sigma_z = \left[ \begin{array}{cc}
+%\pi^{-N/2}\sigma_\nu^2+\pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\Gscript_r^2\paren{\mu_{1,q},\cdots,\mu_{N,q}}-\paren{\expect{z_r}}^2 & \pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\Gscript_r\paren{\mu_{1,q},\cdots,\mu_{N,q}}\Gscript_i\paren{\mu_{1,q},\cdots,\mu_{N,q}}-\expect{z_r}\expect{z_i} \\
+%\pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\Gscript_r\paren{\mu_{1,q},\cdots,\mu_{N,q}}\Gscript_i\paren{\mu_{1,q},\cdots,\mu_{N,q}}-\expect{z_r}\expect{z_i} & \pi^{-N/2}\sigma_\nu^2+\pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\Gscript_i^2\paren{\mu_{1,q},\cdots,\mu_{N,q}}-\paren{\expect{z_i}}^2
+%\end{array} \right]}
+
+Thus, the numerical approximation to the covariance matrix $\Sigmabf_z$ is then
+\ml{\Sigma_z = \left[\arr{c}{\pi^{-N/2}\sigma_\nu^2+\pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\Gscript_r^2\paren{\mu_{1,q},\cdots,\mu_{N,q}}-\paren{\expect{z_r}}^2 \\ \pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\Gscript_r\paren{\mu_{1,q},\cdots,\mu_{N,q}}\Gscript_i\paren{\mu_{1,q},\cdots,\mu_{N,q}}-\expect{z_r}\expect{z_i}}\right. \\ \left.\arr{c}{\pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\Gscript_r\paren{\mu_{1,q},\cdots,\mu_{N,q}}\Gscript_i\paren{\mu_{1,q},\cdots,\mu_{N,q}}-\expect{z_r}\expect{z_i} \\ \pi^{-N/2}\sigma_\nu^2+\pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\Gscript_i^2\paren{\mu_{1,q},\cdots,\mu_{N,q}}-\paren{\expect{z_i}}^2}\right]}
+
+The determinant of the covariance matrix is easily calculated.
+\ml{\lvert\Sigmabf_z\rvert = \paren{\pi^{-N/2}\sigma_\nu^2+\pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\Gscript_r^2\paren{\mu_{1,q},\cdots,\mu_{N,q}}-\paren{\expect{z_r}}^2} \\
+\cdot\paren{\pi^{-N/2}\sigma_\nu^2+\pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\Gscript_i^2\paren{\mu_{1,q},\cdots,\mu_{N,q}}-\paren{\expect{z_i}}^2} \\
+-\paren{\pi^{-N/2}\sumqone\omega_{q_1}\cdots\sumqN\omega_{q_N}\Gscript_r\paren{\mu_{1,q},\cdots,\mu_{N,q}}\Gscript_i\paren{\mu_{1,q},\cdots,\mu_{N,q}}-\expect{z_r}\expect{z_i}}^2}
+
+The mutual information calculation is straightforward once the value of $\lvert\Sigmabf_z\rvert$ is known.
+\eq{I\paren{\mubf;\zbf} = H\paren{\zbf} - H\paren{\zbf\middle|\mubf} = \frac{1}{2}\ln\paren{\paren{2\pi e}^2\cdot\lvert\Sigmabf_z\rvert}-\frac{1}{2}\ln\paren{\paren{2\pi e}^2\cdot\lvert\Sigmabf_\nu\rvert}}
+
+\subsection{The Nonlinear Signal Model Case}
+$z = \Gscript\paren{\mubf}+\nubf$ where $\Gscript\paren{\mubf}$ is nonlinear.
+\eq{H\paren{\zbf} = \int_\zbf p\paren{\zbf}\ln\paren{p\paren{\zbf}}d\zbf = \int_\zbf\paren{\int_{\mubf}p\paren{\zcondbf}p\paren{\mubf}d\mubf}\ln\paren{p\paren{\zbf}}d\zbf}
+\eq{= \int_\zbf\sum\limits_q\omega_qp\paren{\zcondbf_q}\ln\paren{p\paren{\zbf}}d\zbf = \sum\limits_q\omega_q\int_\zbf p\paren{\zcondbf_q}\ln\paren{p\paren{\zbf}}d\zbf}
+\eq{= \sum\limits_q^{N_\mu}\omega_q\sum\limits_k^{N_z}\omega_k\ln\paren{\sum\limits_q\omega_qp\paren{\zbf_k\middle|\mubf_q}}}
+\gt{N_z = \mathrm{number\ of\ quadrature\ points\ over\ }z\\
+N_\mu = \mathrm{number\ of\ quadrature\ points\ over\ }\mu}
+
+
+\end{document}
+

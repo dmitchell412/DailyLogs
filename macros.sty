@@ -1,0 +1,93 @@
+\ProvidesPackage{macros}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	Some math support.					     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+%	Theorem environments (these need the amsthm package)
+%
+%% \theoremstyle{plain} %% This is the default
+
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{ax}{Axiom}
+
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[section]
+
+\theoremstyle{remark}
+\newtheorem{rem}{Remark}[section]
+\newtheorem*{notation}{Notation}
+\newtheorem*{exrcs}{Exercise}
+\newtheorem*{exmple}{Example}
+
+%\numberwithin{equation}{section}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%	Macros.							     %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\eq}[1]{\begin{equation} #1 \end{equation}}
+\newcommand{\eqn}[1]{\begin{equation*} #1 \end{equation*}}
+\newcommand{\ml}[1]{\begin{multline} #1 \end{multline}}
+\newcommand{\mln}[1]{\begin{multline*} #1 \end{multline*}}
+\newcommand{\spl}[1]{\begin{split} #1 \end{split}}
+\newcommand{\eqsp}[1]{\begin{equation}\begin{split} #1 \end{split}\end{equation}}
+\newcommand{\eqspn}[1]{\begin{equation*}\begin{split} #1 \end{split}\end{equation*}}
+\newcommand{\al}[1]{\begin{align} #1 \end{align}}
+\newcommand{\aln}[1]{\begin{align*} #1 \end{align*}}
+\newcommand{\gt}[1]{\begin{gather} #1 \end{gather}}
+\newcommand{\gtn}[1]{\begin{gather*} #1 \end{gather*}}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\mbf}{\mathbf{m}}
+\newcommand{\Pbf}{\mathbf{P}}
+\newcommand{\Rbf}{\mathbf{R}}
+\newcommand{\Vbf}{\mathbf{V}}
+\newcommand{\xbf}{\mathbf{x}}
+\newcommand{\Xbf}{\mathbf{X}}
+\newcommand{\Ybf}{\mathbf{Y}}
+\newcommand{\zbf}{\mathbf{z}}
+\newcommand{\Zbf}{\mathbf{Z}}
+\newcommand{\mubf}{\boldsymbol{\mu}}
+\newcommand{\nubf}{\boldsymbol{\nu}}
+\newcommand{\Gammabf}{\mathbf{\Gamma}}
+\newcommand{\Cbf}{\mathbf{C}}
+\newcommand{\Sigmabf}{\boldsymbol{\Sigma}}
+\newcommand{\zcond}{\mathbf{z}\middle|\mu}
+\newcommand{\zcondbf}{\mathbf{z}\middle|\boldsymbol{\mu}}
+\newcommand{\signalG}{\mathcal{G}\paren{\mu,\mathbf{k}}}
+\newcommand{\Gscript}{\mathcal{G}}
+\newcommand{\Nscript}{\mathcal{N}}
+\newcommand{\CNscript}{\mathcal{CN}}
+\newcommand{\im}{\mathrm{i}}
+
+\newcommand{\paren}[1]{\left(#1\right)}
+\newcommand{\bracket}[1]{\left[#1\right]}
+\newcommand{\braced}[1]{\left\{#1\right\}}
+\newcommand{\arr}[2]{\begin{array}{#1} #2 \end{array}}
+\newcommand{\parenarray}[2]{\paren{\arr{#1}{#2}}}
+\newcommand{\brkarray}[2]{\bracket{\arr{#1}{#2}}}
+
+\newcommand{\expect}[1]{\mathrm{E}\left[#1\right]}
+\newcommand{\intinfty}{\int\limits_{-\infty}^\infty}
+\newcommand{\prodin}{\prod\limits_{i=1}^N}
+\newcommand{\sumin}{\sum\limits_{i=1}^N}
+\newcommand{\sumkn}{\sum\limits_{k=1}^N}
+\newcommand{\sumnn}{\sum\limits_{n=1}^N}
+\newcommand{\summn}{\sum\limits_{m=1}^N}
+\newcommand{\sumpp}{\sum\limits_{p=1}^P}
+\newcommand{\sumqq}{\sum\limits_{q=1}^Q}
+\newcommand{\sumqone}{\sum\limits_{q_1=1}^{Q_1}}
+\newcommand{\sumqN}{\sum\limits_{q_N=1}^{Q_N}}
+\newcommand{\reop}[1]{\operatorname{Re}\paren{#1}}
+\newcommand{\imop}[1]{\operatorname{Im}\paren{#1}}
+\newcommand{\pderiv}[2]{\frac{\partial#1}{\partial#2}}
+
+\newcommand{\qq}{\qquad\qquad}
+
+\newcommand{\normpdf}[3]{\frac{1}{\sqrt{2\pi}#3}\exp\paren{-\frac{\paren{#1-#2}^2}{2#3^2}}}
+\newcommand{\CNpdf}[4]{\frac{1}{\pi^k\sqrt{\mathrm{det}\paren{#3}\mathrm{det}\paren{\bar{#3} - \bar{#4}^T#3^{-1}#4}}} \exp\left\{-\frac{1}{2} \paren{\begin{array}{cc}\paren{\bar{#1} - \bar{#2}}^T & \paren{#1 - #2}^T\end{array}} \paren{\begin{array}{cc} #3 & #4 \ \bar{#4}^T & \bar{#3} \end{array}}\paren{\begin{array}{c} #1 - #2 \ \bar{#1} - \bar{#2} \end{array}}\right\}}
+
