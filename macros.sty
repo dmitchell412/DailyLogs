@@ -1,5 +1,8 @@
 \ProvidesPackage{macros}
 
+\usepackage{amsmath,amsthm,amsfonts,amscd,amssymb,breqn,xifthen} 
+\allowdisplaybreaks
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %	Some math support.					     %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -29,8 +32,12 @@
 %	Macros.							     %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newcommand{\eq}[1]{\begin{equation} #1 \end{equation}}
-\newcommand{\eqn}[1]{\begin{equation*} #1 \end{equation*}}
+%\newcommand{\eq}[1]{\begin{equation} #1 \end{equation}}
+%\newcommand{\eqn}[1]{\begin{equation*} #1 \end{equation*}}
+\newcommand{\eq}[2][]{\ifthenelse{\isempty{#1}}{\begin{dmath} #2 \end{dmath}}{\begin{dmath}\label{#1} #2 \end{dmath}}}
+\newcommand{\eqn}[2][]{\ifthenelse{\isempty{#1}}{\begin{dmath*} #2 \end{dmath*}}{\begin{dmath*}\label{#1} #2 \end{dmath}}}
+\newcommand{\gr}[2][]{\ifthenelse{\isempty{#1}}{\begin{dgroup} #2 \end{dgroup}}{\begin{dgroup}\label{#1} #2 \end{dgroup}}}
+\newcommand{\grn}[2][]{\ifthenelse{\isempty{#1}}{\begin{dgroup*} #2 \end{dgroup*}}{\begin{dgroup*}\label{#1} #2 \end{dgroup#}}}
 \newcommand{\ml}[1]{\begin{multline} #1 \end{multline}}
 \newcommand{\mln}[1]{\begin{multline*} #1 \end{multline*}}
 \newcommand{\spl}[1]{\begin{split} #1 \end{split}}
@@ -84,6 +91,7 @@
 \newcommand{\sumqN}{\sum\limits_{q_N=1}^{Q_N}}
 \newcommand{\reop}[1]{\operatorname{Re}\paren{#1}}
 \newcommand{\imop}[1]{\operatorname{Im}\paren{#1}}
+\newcommand{\deriv}[2]{\frac{d#1}{d#2}}
 \newcommand{\pderiv}[2]{\frac{\partial#1}{\partial#2}}
 
 \newcommand{\qq}{\qquad\qquad}
